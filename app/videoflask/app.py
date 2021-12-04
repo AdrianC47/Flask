@@ -62,7 +62,12 @@ def listar_cursos():
         cursor.execute(sql)
         pacientes=cursor.fetchall()
         #print(pacientes)
+        #datos={
+        #    'pacientes':pacientes
+        #}
         data['pacientes']= pacientes 
+        #return render_template('pacientes.html', datos=datos)
+
         data['mensaje'] = 'Exito'
     except Exception as ex: 
         data ['mensaje']='Error.....'

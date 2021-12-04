@@ -1,16 +1,51 @@
-{% extends './layout.html' %} <!--Heredo desde una plantilla-->
+<!DOCTYPE html>
+<html lang="en">
 
-{% block title %}{{data.titulo}}{% endblock %} 
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salud Mental</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/layout.css') }}">
+</head>
 
-{% block body %}
-<h1>{{data.bienvenida}}</h1> 
-{% if data.numero_cursos > 0 %}
-<ul>
-    {% for c in data.cursos %}
-    <li>{{ c }}</li>
-    {% endfor %}
-</ul>
-{% else %}
-<h2>No existen cursos....</h2>
-{% endif %}
-{% endblock %} 
+<body>
+    <header>
+        <img class="Banner" src="../static/recursos/Banner.png" />
+    </header>
+    <h1>Sistemas Expertos de Salud Mental</h1>
+    <form method='GET' action='/Test1'>
+        <input id="cargarBD" type="submit" value="Test de Autoestima">
+        <input id="inTest2" type="submit" value="Test de Fobia Social">
+    </form>
+    <br>
+    <img class="ImagenIzq" src="../static/recursos/autoestima-es-clave.jpg" width="35%"  height="250"  >
+    <img class="ImagenDere" src="../static/recursos/Fobia social.jpg" width="35%"  height="250"   >
+   
+    
+
+
+
+    
+    <footer>
+        <!--Pie de pagina-->
+        <fieldset id="f1">
+            <address>
+                <!--Provee información de contacto del autor-->
+
+                <br>
+                &nbsp;&nbsp; Luis Adrián Cabrera Bermeo &#8226; Tonny Roger Lema Jaramillo &#8226; Universidad Politécnica Salesiana &#32; &#8226; 
+                <a href="mailto:lcabrerab@est.ups.edu.ec">lcabrerab@est.ups.edu.ec &#32; &#8226;</a>
+                <a href="mailto:tlemaj1@est.ups.edu.ec">tlemaj1@est.ups.edu.ec &#32;  </a>               
+            </address>
+            <br>
+
+            <img class="ImagenCentro" src="../static/recursos/logo.png" width="25%">
+            <p id="Copy"><strong>&#32; &#169; Todos los Derechos Reservados </strong> </p>
+        </fieldset>
+
+    </footer>
+
+</body>
+
+</html>

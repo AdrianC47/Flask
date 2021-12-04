@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test1</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/layout.css') }}">
+ 
+</head>
+
+<body>
+    <section>
+        <article id="articleForm">
+            <h3>Resultado de la carga de la base de conocimiento => {{ resultadoCarga }} {{ estado }} </h3>
+
+            {% if estado==True %}
+            <form id="Formulario" action="mailto:lcabrerab@est.ups.edu.ec">
+                <legend>
+                    <h1 id="Cabecerah1">Contáctanos</h1>
+                </legend>
+                <label for="Nombres">Nombres: </label>
+                <input type="text" id="Nombres" size="45" />
+                <br />
+                <br />
+                <label for="Apellidos">Apellidos: </label>
+                <input type="text" id="Apellidos" size="45" />
+                <br />
+                <br />
+                <label for="Cedula">Cédula:</label>
+                <input type="text" id="Cedula" size="45" />
+                <br />
+                <br />
+                <label for="Correo">Correo:</label>
+                <input type="text" id="Correo" size="45" />
+                <br />
+                <br />
+                <label for="Comentario">Tu Comentario o Sugerencia </label>
+                <textarea name="Comentario" cols="30" rows="6” wrap=" virtual"> </textarea>
+                <br />
+                <br />
+                <input id="Boton" type="submit" value="Enviar">
+
+            </form>
+            {% else %}
+            <h3>No Cargó</h3>
+        {% endif %}
+        </article>
+    </section>
+</body>
+
+</html>

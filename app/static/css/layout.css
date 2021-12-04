@@ -1,3 +1,137 @@
-body {
-    background-color: peru;
+@charset "utf-8";/**/
+ 
+/*
+Autor: Luis Adrián Cabrera
+Fecha: 17/11/2021
+*/
+
+ 
+
+html{
+    height: 100%;
+
 }
+ 
+
+
+body{
+    margin-left: auto;
+    margin-right: auto;
+    width: 95%;
+    background-image: url("../recursos/wp2264127-white-wood-wallpapers.jpg");
+    clear: none;
+    float: none;
+}
+ 
+
+
+img.Banner{ /*Selector de Clase*/
+    width: 100%;
+     margin: 0% 0% 0% -0.5%;
+    /*margin: 2px 0.1px 0.1px  2px ; */
+    border: 5px solid;
+  }
+
+h1{
+  text-align: center;
+  background-color: wheat;
+  border-style: solid   ;
+  border-width: 4px;
+   
+   width: 50%; 
+  margin-left: 26%
+}
+
+ 
+
+
+input#cargarBD{
+   border: 5px solid;
+   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+   width: 40%;
+   font-size: x-large;
+   font-weight: bold;
+   height: 90px;
+   padding-bottom: 2px; 
+  
+   border: 5px solid black; 
+}   
+
+input#inTest2:hover{   
+  background-color: cyan;
+
+  }
+
+  input#inTest2{
+    
+    border: 5px solid;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    width: 40%;
+    font-size: x-large;
+    font-weight: bold;
+    height: 90px;
+    padding-bottom: 2px; 
+    margin-left: 16%;
+    border: 5px solid black; 
+ }   
+ 
+ input#cargarBD:hover{   
+   background-color: cyan;
+ 
+   }
+
+
+.ImagenIzq { /*Selector por Clase*/
+    border-style: solid ;
+    border-width: 4px;
+    border-color:    black;
+    margin: auto;
+    margin-left: 2%;
+      
+}
+
+
+.ImagenDere { /*Selector por Clase*/
+  border-style: solid ;
+  border-width: 4px;
+  border-color:    black;
+  margin: auto;
+  margin-left: 21%; 
+    
+}
+
+
+footer   {
+  text-align: center;
+  font-size: larger;
+  margin-top: 4%;
+  border-top: 3px solid rgb(0, 40, 218);
+  font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
+  clear: both;
+  padding-bottom: 20px;
+  margin-bottom: 1%;
+  width: 100%;
+   
+  }
+  
+  address{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; 
+    text-align: center;
+    font-weight: bold;
+    background-color: blanchedalmond;
+     
+  }
+  fieldset#f1{ /*Selector por id*/
+      
+     
+    font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, sans-serif;
+     
+  }
+  
+  p#Copy{ /*Selector por id*/
+    text-align: center;
+    color: black
+  }
+  
+ 
+ 

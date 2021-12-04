@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Generación de Hechos</title>
+        <style>
+            .h3{
+                color:rgb(243, 42, 109);
+            }
+        </style>
+    </head>
+    <body>
+
+        <h3>Resultado de la carga de la base de conocimiento => {{ resultadoCarga }} {{ estado }} </h3>
+
+        {% if estado==True %}
+            <form method='POST' action='/crearPersona'>
+                <label for='codigo'>Código</label>
+                <input type='text' size='5' name='codigo' id='codigo' value='' />
+                <label for='nombre'>Nombre</label>
+                <input type='text' size='10' name='nombre' id='nombre' value='' />
+                <label for='apellido'>Nombre</label>
+                <input type='text' size='10' name='apellido' id='apellido' value='' />
+                <input type='submit' value='Crear Persona' name='crearP' id='crearP' />
+            </form>
+        {% else %}
+            <h3>No Cargó</h3>
+        {% endif %}
+
+    </body>
+</html>
