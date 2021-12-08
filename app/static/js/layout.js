@@ -1,1 +1,1 @@
-//alert('Hola Mundo!! Sistemas Expertos es Genial')
+ alert('Hola Mundo!! Sistemas Expertos es Genial')

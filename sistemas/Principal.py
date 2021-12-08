@@ -6,7 +6,7 @@ from flask_mysqldb import MySQL
 app = Flask(__name__)
 entorno = clips.Environment()
 
-app.run(debug=True,port=5000)
+
 @app.route('/')
 @app.route('/index')
 def indice ():
@@ -56,5 +56,10 @@ def crearPersona():
         return render_template('listadoHechos.html', tam=len(hechos), lista=hechos)
 
     return ""
- 
+@app.route('/Holi' , methods=['GET', 'POST'])
 
+def Holi():
+    if request.method=='POST':
+        print('Hoy es un gran dia para morir')
+    return "<h1>Tengo hamble</h1>"
+app.run(debug=True,port=5000)
