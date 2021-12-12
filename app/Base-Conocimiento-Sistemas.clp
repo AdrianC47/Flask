@@ -1,4 +1,4 @@
-(watch all)
+
 ;======================================TEMPLATES====================================================
 (deftemplate paciente 
     (slot codigo
@@ -10,6 +10,7 @@
         (type STRING)
         (default ?DERIVE)
 		(cardinality 1 2)
+ 
     )
     (multislot apellidos
         (type STRING)
@@ -29,7 +30,6 @@
     (multislot texto
         (type STRING)
         (default ?DERIVE)
-		(cardinality 1  )
     )
  
 )
@@ -66,7 +66,7 @@
 		(default 1)
 	)	
 
-	(slot codigo-paciente
+	(slot codigopaciente
 		(type INTEGER)
         (range 1 13373)
         (default 1)
@@ -80,9 +80,8 @@
  
 	
 	(slot tipo
-		(type SYMBOL)
-		(allowed-values FB vacio)
-		(default vacio)
+		(type STRING)
+		(default "FB")
 	) 
 	
 		(slot pregunta
@@ -101,7 +100,7 @@
 		(default 1)
 	)	
 
-	(slot codigo-paciente
+	(slot codigopaciente
 		(type INTEGER)
         (range 1 13373)
         (default 1)
@@ -114,15 +113,15 @@
 	)
  
 	(slot tipo
-		(type SYMBOL)
-		(allowed-values AU vacio)
-		(default vacio)
+		(type STRING)
+		(default "AU")
 	) 
+ 
 	
 	(slot pregunta
 		(type INTEGER)
-		(range 1 5)
-		(default 1)
+		(range 18 24)
+ 
 	)	
 )
 
@@ -185,7 +184,7 @@
 		(default 1)
 	)	
 
-	(slot codigo-paciente
+	(slot codigopaciente
 		(type INTEGER)
         (range 1 13373)
         (default 1)
@@ -196,15 +195,12 @@
 		(default "NUNCA")
 		(allowed-values "NUNCA" "MUY POCO" "UN POCO" "MUCHISIMO" "TODO EL TIEMPO") 
 	)
-	
  
  
-	
 	(slot tipo
-		(type SYMBOL)
-		(allowed-values FB  vacio)
-		(default vacio)
-	)
+		(type STRING)
+		(default "FB")
+	) 
 
 	(slot pregunta
 		(type INTEGER)
@@ -221,7 +217,7 @@
 		(default 1)
 	)	
 
-	(slot codigo-paciente
+	(slot codigopaciente
 		(type INTEGER)
         (range 1 13373)
         (default 1)
@@ -234,15 +230,15 @@
 	)
  
 	(slot tipo
-		(type SYMBOL)
-		(allowed-values AU vacio)
-		(default vacio)
-	) 
+		(type STRING)
+		(default "AU")
+	)  
+ 
 	
 	(slot pregunta
 		(type INTEGER)
-		(range 1 5)
-		(default 1)
+		(range 18 24)
+ 
 	)	
 )
  
@@ -260,7 +256,7 @@
  
 (defrule match-paciente
 	(object  (is-a paciente) (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e))	
-	(object  (is-a cuestionario)  (codigo ?ct)(codigo-paciente ?cp) (respuesta ?r)  (tipo ?t) (pregunta ?p))	  
+	(object  (is-a cuestionario)  (codigo ?ct)(codigopaciente ?cp) (respuesta ?r)  (tipo ?t) (pregunta ?p))	  
  
     (test
          (= ?cp ?c)
@@ -274,7 +270,7 @@
  
 
 	(assert (paciente (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e)))
-	(assert (cuestionario (codigo ?ct) (codigo-paciente ?cp) (respuesta ?r)(tipo ?t) (pregunta ?p) ))
+	(assert (cuestionario (codigo ?ct) (codigopaciente ?cp) (respuesta ?r)(tipo ?t) (pregunta ?p) ))
 
 
 )
@@ -282,7 +278,7 @@
 
 (defrule match-paciente2
 	(object  (is-a paciente2) (codigo ?c2) (nombres $?n2) (apellidos $?a2) (edad ?e2))	
-	(object  (is-a cuestionario2)  (codigo ?ct2)(codigo-paciente ?cp2) (respuesta ?r2)  (tipo ?t2) (pregunta ?p2))	  
+	(object  (is-a cuestionario2)  (codigo ?ct2)(codigopaciente ?cp2) (respuesta ?r2)  (tipo ?t2) (pregunta ?p2))	  
  
     (test
          (= ?cp2 ?c2)
@@ -295,7 +291,7 @@
  
  
 	(assert (paciente2 (codigo ?c2) (nombres $?n2) (apellidos $?a2) (edad ?e2)))
-	(assert (cuestionario2 (codigo ?ct2) (codigo-paciente ?cp2) (respuesta ?r2)(tipo ?t2) (pregunta ?p2)))
+	(assert (cuestionario2 (codigo ?ct2) (codigopaciente ?cp2) (respuesta ?r2)(tipo ?t2) (pregunta ?p2)))
 
  
 )
@@ -303,7 +299,7 @@
 
 (defrule pregunta_1
  	 (paciente (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e))
-	 (cuestionario (codigo ?ct) (codigo-paciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
+	 (cuestionario (codigo ?ct) (codigopaciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
 	 (test
         (eq ?t FB)
      ) 
@@ -312,33 +308,32 @@
         (eq ?p 1)
      ) 
 =>
- 
-	 (if (eq ?r "NUNCA") then	
-	 	 (bind ?*cont* (suma ?*cont* 1))
- 		 (printout t  "El total es "  ?*cont* crlf)
-		 
 
-	 )
+	(if 
+		(eq ?r NUNCA) 	
+	 	then (bind ?*cont* (suma ?*cont* 1))
+ 		 	(printout t  "El total es "  ?*cont* crlf)
+	)
 	 
-	 (if (eq ?r "MUY POCO") then	
-	 	 (bind ?*cont* (suma ?*cont* 2))
+	 (if (eq ?r "MUY POCO")	
+	 	then (bind ?*cont* (suma ?*cont* 2))
  		 (printout t  "El total es "  ?*cont* crlf)
  
 	 )
 
-	 (if (eq ?r "UN POCO") then	
-	 	 (bind ?*cont* (suma ?*cont* 3))
+	 (if (eq ?r "UN POCO") 
+	 	 then (bind ?*cont* (suma ?*cont* 3))
  		 (printout t  "El total es "  ?*cont* crlf)
  
 	 )
-	 (if (eq ?r "MUCHISIMO") then	
-	 	 (bind ?*cont* (suma ?*cont* 4))
+	 (if (eq ?r "MUCHISIMO") 
+		then (bind ?*cont* (suma ?*cont* 4))
  		 (printout t  "El total es "  ?*cont* crlf)
  
 	 )
 
-	 (if (eq ?r "TODO EL TIEMPO") then	
-	 	 (bind ?*cont* (suma ?*cont* 5))
+	 (if (eq ?r "TODO EL TIEMPO") 
+	 	then (bind ?*cont* (suma ?*cont* 5))
  		 (printout t  "El total es "  ?*cont* crlf)
  
 	 )	  
@@ -348,14 +343,10 @@
 		 (bind ?*cont* 0)
  
  
-		 
-		 
-		 
-	
 )
 (defrule pregunta_2
  	 (paciente (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e))
-	 (cuestionario (codigo ?ct) (codigo-paciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
+	 (cuestionario (codigo ?ct) (codigopaciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
 	 (test
         (eq ?t FB)
      ) 
@@ -363,27 +354,27 @@
         (eq ?p 2)
      ) 
 =>
-	 (if (eq ?r "NUNCA") then	
-	 	 (bind ?*cont* (suma ?*cont* 1))
+	 (if (eq ?r "NUNCA") 
+		 then (bind ?*cont* (suma ?*cont* 1))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 	 
-	 (if (eq ?r "MUY POCO") then	
-	 	 (bind ?*cont* (suma ?*cont* 2))
+	 (if (eq ?r "MUY POCO") 
+		then (bind ?*cont* (suma ?*cont* 2))
+ 		(printout t  "El total es "  ?*cont* crlf)
+	 )
+
+	 (if (eq ?r "UN POCO") 
+		then (bind ?*cont* (suma ?*cont* 3))
+ 		 (printout t  "El total es "  ?*cont* crlf)
+	 )
+	 (if (eq ?r "MUCHISIMO") 
+		then (bind ?*cont* (suma ?*cont* 4))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 
-	 (if (eq ?r "UN POCO") then	
-	 	 (bind ?*cont* (suma ?*cont* 3))
- 		 (printout t  "El total es "  ?*cont* crlf)
-	 )
-	 (if (eq ?r "MUCHISIMO") then	
-	 	 (bind ?*cont* (suma ?*cont* 4))
- 		 (printout t  "El total es "  ?*cont* crlf)
-	 )
-
-	 (if (eq ?r "TODO EL TIEMPO") then	
-	 	 (bind ?*cont* (suma ?*cont* 5))
+	 (if (eq ?r "TODO EL TIEMPO") 
+	 	then (bind ?*cont* (suma ?*cont* 5))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )	 
 	 (printout t "El paciente en el  test de tipo " ?t " de momento ha obtenido una puntuacion de " ?*cont*  crlf)
@@ -392,7 +383,7 @@
 
 (defrule pregunta_3
  	 (paciente (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e))
-	 (cuestionario (codigo ?ct) (codigo-paciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
+	 (cuestionario (codigo ?ct) (codigopaciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
 	 (test
         (eq ?t FB)
      )
@@ -400,27 +391,27 @@
         (eq ?p 3)
      )	 
 =>
-	 (if (eq ?r "NUNCA") then	
-	 	 (bind ?*cont* (suma ?*cont* 1))
+	 (if (eq ?r "NUNCA") 
+		then (bind ?*cont* (suma ?*cont* 1))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 	 
-	 (if (eq ?r "MUY POCO") then	
-	 	 (bind ?*cont* (suma ?*cont* 2))
+	 (if (eq ?r "MUY POCO") 
+		then (bind ?*cont* (suma ?*cont* 2))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 
-	 (if (eq ?r "UN POCO") then	
-	 	 (bind ?*cont* (suma ?*cont* 3))
+	 (if (eq ?r "UN POCO") 
+	 	 then (bind ?*cont* (suma ?*cont* 3))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
-	 (if (eq ?r "MUCHISIMO") then	
-	 	 (bind ?*cont* (suma ?*cont* 4))
+	 (if (eq ?r "MUCHISIMO") 
+		 then (bind ?*cont* (suma ?*cont* 4))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 
-	 (if (eq ?r "TODO EL TIEMPO") then	
-	 	 (bind ?*cont* (suma ?*cont* 5))
+	 (if (eq ?r "TODO EL TIEMPO") 
+		 then (bind ?*cont* (suma ?*cont* 5))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )	 
 	 (printout t "El paciente en el  test de tipo " ?t " de momento ha obtenido una puntuacion de " ?*cont*  crlf)
@@ -429,7 +420,7 @@
 
 (defrule pregunta_4
  	 (paciente (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e))
-	 (cuestionario (codigo ?ct) (codigo-paciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
+	 (cuestionario (codigo ?ct) (codigopaciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
 	 (test
         (eq ?t FB)
      ) 
@@ -437,27 +428,27 @@
         (eq ?p 4)
      ) 
 =>
-	 (if (eq ?r "NUNCA") then	
-	 	 (bind ?*cont* (suma ?*cont* 1))
- 		 (printout t  "El total es "  ?*cont* crlf)
+	 (if (eq ?r "NUNCA") 
+		then (bind ?*cont* (suma ?*cont* 1))
+ 		(printout t  "El total es "  ?*cont* crlf)
 	 )
 	 
-	 (if (eq ?r "MUY POCO") then	
-	 	 (bind ?*cont* (suma ?*cont* 2))
+	 (if (eq ?r "MUY POCO") 
+		then(bind ?*cont* (suma ?*cont* 2))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 
-	 (if (eq ?r "UN POCO") then	
-	 	 (bind ?*cont* (suma ?*cont* 3))
+	 (if (eq ?r "UN POCO") 
+		then (bind ?*cont* (suma ?*cont* 3))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
-	 (if (eq ?r "MUCHISIMO") then	
-	 	 (bind ?*cont* (suma ?*cont* 4))
+	 (if (eq ?r "MUCHISIMO") 
+		then (bind ?*cont* (suma ?*cont* 4))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 
-	 (if (eq ?r "TODO EL TIEMPO") then	
-	 	 (bind ?*cont* (suma ?*cont* 5))
+	 (if (eq ?r "TODO EL TIEMPO") 
+		then (bind ?*cont* (suma ?*cont* 5))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )	 
 	 (printout t "El paciente en el  test de tipo " ?t " de momento ha obtenido una puntuacion de " ?*cont*  crlf)
@@ -465,7 +456,7 @@
 )
 (defrule pregunta_5
  	 (paciente (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e))
-	 (cuestionario (codigo ?ct) (codigo-paciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
+	 (cuestionario (codigo ?ct) (codigopaciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
 	 (test
         (eq ?t FB)
      )
@@ -473,27 +464,27 @@
         (eq ?p 5)
      )	 
 =>
-	 (if (eq ?r "NUNCA") then	
-	 	 (bind ?*cont* (suma ?*cont* 1))
+	 (if (eq ?r "NUNCA") 
+		 then (bind ?*cont* (suma ?*cont* 1))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 	 
-	 (if (eq ?r "MUY POCO") then	
-	 	 (bind ?*cont* (suma ?*cont* 2))
+	 (if (eq ?r "MUY POCO") 
+	 	 then (bind ?*cont* (suma ?*cont* 2))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 
-	 (if (eq ?r "UN POCO") then	
-	 	 (bind ?*cont* (suma ?*cont* 3))
+	 (if (eq ?r "UN POCO") 
+	 	 then (bind ?*cont* (suma ?*cont* 3))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
-	 (if (eq ?r "MUCHISIMO") then	
-	 	 (bind ?*cont* (suma ?*cont* 4))
+	 (if (eq ?r "MUCHISIMO") 
+	 	then (bind ?*cont* (suma ?*cont* 4))
  		 (printout t  "El total es  "  ?*cont* crlf)
 	 )
 
-	 (if (eq ?r "TODO EL TIEMPO") then	
-	 	 (bind ?*cont* (suma ?*cont* 5))
+	 (if (eq ?r "TODO EL TIEMPO") 
+		 then (bind ?*cont* (suma ?*cont* 5))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )	 
 	 (printout t "El paciente en el  test de tipo " ?t " de momento ha obtenido una puntuacion de " ?*cont*  crlf)
@@ -502,7 +493,7 @@
 
 (defrule pregunta_6
  	 (paciente (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e))
-	 (cuestionario (codigo ?ct) (codigo-paciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
+	 (cuestionario (codigo ?ct) (codigopaciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
 	 (test
         (eq ?t FB)
      ) 
@@ -510,27 +501,27 @@
         (eq ?p 6)
      )
 =>
-	 (if (eq ?r "NUNCA") then	
-	 	 (bind ?*cont* (suma ?*cont* 1))
+	 (if (eq ?r "NUNCA") 
+	 	 then (bind ?*cont* (suma ?*cont* 1))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 	 
-	 (if (eq ?r "MUY POCO") then	
-	 	 (bind ?*cont* (suma ?*cont* 2))
+	 (if (eq ?r "MUY POCO") 
+ 		then (bind ?*cont* (suma ?*cont* 2))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 
-	 (if (eq ?r "UN POCO") then	
-	 	 (bind ?*cont* (suma ?*cont* 3))
+	 (if (eq ?r "UN POCO") 
+	 	then (bind ?*cont* (suma ?*cont* 3))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
-	 (if (eq ?r "MUCHISIMO") then	
-	 	 (bind ?*cont* (suma ?*cont* 4))
+	 (if (eq ?r "MUCHISIMO") 
+		then (bind ?*cont* (suma ?*cont* 4))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 
-	 (if (eq ?r "TODO EL TIEMPO") then	
-	 	 (bind ?*cont* (suma ?*cont* 5))
+	 (if (eq ?r "TODO EL TIEMPO") 
+		 then (bind ?*cont* (suma ?*cont* 5))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )	 
 	 (printout t "El paciente en el  test de tipo " ?t " de momento ha obtenido una puntuacion de " ?*cont*  crlf)
@@ -539,7 +530,7 @@
 
 (defrule pregunta_7
  	 (paciente (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e))
-	 (cuestionario (codigo ?ct) (codigo-paciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
+	 (cuestionario (codigo ?ct) (codigopaciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
 	 (test
         (eq ?t FB)
      )
@@ -548,27 +539,27 @@
      )
 	 
 =>
-	 (if (eq ?r "NUNCA") then	
-	 	 (bind ?*cont* (suma ?*cont* 1))
+	 (if (eq ?r "NUNCA") 
+	 	 then (bind ?*cont* (suma ?*cont* 1))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 	 
-	 (if (eq ?r "MUY POCO") then	
-	 	 (bind ?*cont* (suma ?*cont* 2))
+	 (if (eq ?r "MUY POCO") 
+		 then (bind ?*cont* (suma ?*cont* 2))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 
-	 (if (eq ?r "UN POCO") then	
-	 	 (bind ?*cont* (suma ?*cont* 3))
+	 (if (eq ?r "UN POCO") 
+	 	 then (bind ?*cont* (suma ?*cont* 3))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
-	 (if (eq ?r "MUCHISIMO") then	
-	 	 (bind ?*cont* (suma ?*cont* 4))
+	 (if (eq ?r "MUCHISIMO") 
+	 	 then (bind ?*cont* (suma ?*cont* 4))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 
-	 (if (eq ?r "TODO EL TIEMPO") then	
-	 	 (bind ?*cont* (suma ?*cont* 5))
+	 (if (eq ?r "TODO EL TIEMPO") 
+	 	 then (bind ?*cont* (suma ?*cont* 5))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )	 
 	 (printout t "El paciente en el  test de tipo " ?t " de momento ha obtenido una puntuacion de " ?*cont*  crlf)
@@ -577,7 +568,7 @@
 
 (defrule pregunta_8
  	 (paciente (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e))
-	 (cuestionario (codigo ?ct) (codigo-paciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
+	 (cuestionario (codigo ?ct) (codigopaciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
 	 (test
         (eq ?t FB)
      ) 
@@ -585,27 +576,27 @@
         (eq ?p 8)
      )
 =>
-	 (if (eq ?r "NUNCA") then	
-	 	 (bind ?*cont* (suma ?*cont* 1))
+	 (if (eq ?r "NUNCA")
+	  	 then (bind ?*cont* (suma ?*cont* 1))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 	 
-	 (if (eq ?r "MUY POCO") then	
-	 	 (bind ?*cont* (suma ?*cont* 2))
+	 (if (eq ?r "MUY POCO")
+	  	 then (bind ?*cont* (suma ?*cont* 2))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 
-	 (if (eq ?r "UN POCO") then	
-	 	 (bind ?*cont* (suma ?*cont* 3))
+	 (if (eq ?r "UN POCO")
+	   	 then (bind ?*cont* (suma ?*cont* 3))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
-	 (if (eq ?r "MUCHISIMO") then	
-	 	 (bind ?*cont* (suma ?*cont* 4))
+	 (if (eq ?r "MUCHISIMO") 
+	 	 then (bind ?*cont* (suma ?*cont* 4))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 
-	 (if (eq ?r "TODO EL TIEMPO") then	
-	 	 (bind ?*cont* (suma ?*cont* 5))
+	 (if (eq ?r "TODO EL TIEMPO") 
+	 	 then (bind ?*cont* (suma ?*cont* 5))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )	 
 	 (printout t "El paciente en el  test de tipo " ?t " de momento ha obtenido una puntuacion de " ?*cont*  crlf)
@@ -614,7 +605,7 @@
 
 (defrule pregunta_9
  	 (paciente (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e))
-	 (cuestionario (codigo ?ct) (codigo-paciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
+	 (cuestionario (codigo ?ct) (codigopaciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
 	 (test
         (eq ?t FB)
      )
@@ -622,27 +613,27 @@
         (eq ?p 9)
      )	 
 =>
-	 (if (eq ?r "NUNCA") then	
-	 	 (bind ?*cont* (suma ?*cont* 1))
+	 (if (eq ?r "NUNCA") 
+	 	 then (bind ?*cont* (suma ?*cont* 1))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 	 
-	 (if (eq ?r "MUY POCO") then	
-	 	 (bind ?*cont* (suma ?*cont* 2))
+	 (if (eq ?r "MUY POCO") 
+	 	 then (bind ?*cont* (suma ?*cont* 2))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 
-	 (if (eq ?r "UN POCO") then	
-	 	 (bind ?*cont* (suma ?*cont* 3))
+	 (if (eq ?r "UN POCO") 
+	 	 then (bind ?*cont* (suma ?*cont* 3))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
-	 (if (eq ?r "MUCHISIMO") then	
-	 	 (bind ?*cont* (suma ?*cont* 4))
+	 (if (eq ?r "MUCHISIMO") 
+	 	 then (bind ?*cont* (suma ?*cont* 4))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 
-	 (if (eq ?r "TODO EL TIEMPO") then	
-	 	 (bind ?*cont* (suma ?*cont* 5))
+	 (if (eq ?r "TODO EL TIEMPO") 
+	 	 then (bind ?*cont* (suma ?*cont* 5))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )	 
 	 (printout t "El paciente en el  test de tipo " ?t " de momento ha obtenido una puntuacion de " ?*cont*  crlf)
@@ -651,7 +642,7 @@
 
 (defrule pregunta_10
  	 (paciente (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e))
-	 (cuestionario (codigo ?ct) (codigo-paciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
+	 (cuestionario (codigo ?ct) (codigopaciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
 	 (test
         (eq ?t FB)
      )
@@ -659,27 +650,27 @@
         (eq ?p 10)
      )	 
 =>
-	 (if (eq ?r "NUNCA") then	
-	 	 (bind ?*cont* (suma ?*cont* 1))
+	 (if (eq ?r "NUNCA") 
+	 	 then (bind ?*cont* (suma ?*cont* 1))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 	 
-	 (if (eq ?r "MUY POCO") then	
-	 	 (bind ?*cont* (suma ?*cont* 2))
+	 (if (eq ?r "MUY POCO") 
+		 then (bind ?*cont* (suma ?*cont* 2))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 
-	 (if (eq ?r "UN POCO") then	
-	 	 (bind ?*cont* (suma ?*cont* 3))
+	 (if (eq ?r "UN POCO") 
+		 then (bind ?*cont* (suma ?*cont* 3))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
-	 (if (eq ?r "MUCHISIMO") then	
-	 	 (bind ?*cont* (suma ?*cont* 4))
+	 (if (eq ?r "MUCHISIMO") 
+	 	 then (bind ?*cont* (suma ?*cont* 4))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 
-	 (if (eq ?r "TODO EL TIEMPO") then	
-	 	 (bind ?*cont* (suma ?*cont* 5))
+	 (if (eq ?r "TODO EL TIEMPO")
+	  	 then (bind ?*cont* (suma ?*cont* 5))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )	 
 	 (printout t "El paciente en el  test de tipo " ?t " de momento ha obtenido una puntuacion de " ?*cont*  crlf)
@@ -688,7 +679,7 @@
 
 (defrule pregunta_11
  	 (paciente (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e))
-	 (cuestionario (codigo ?ct) (codigo-paciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
+	 (cuestionario (codigo ?ct) (codigopaciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
 	 (test
         (eq ?t FB)
      ) 
@@ -696,27 +687,27 @@
         (eq ?p 11)
      )	 
 =>
-	 (if (eq ?r "NUNCA") then	
-	 	 (bind ?*cont* (suma ?*cont* 1))
+	 (if (eq ?r "NUNCA") 
+	 	 then (bind ?*cont* (suma ?*cont* 1))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 	 
-	 (if (eq ?r "MUY POCO") then	
-	 	 (bind ?*cont* (suma ?*cont* 2))
+	 (if (eq ?r "MUY POCO") 
+	 	 then (bind ?*cont* (suma ?*cont* 2))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 
-	 (if (eq ?r "UN POCO") then	
-	 	 (bind ?*cont* (suma ?*cont* 3))
+	 (if (eq ?r "UN POCO") 
+	 	then (bind ?*cont* (suma ?*cont* 3))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
-	 (if (eq ?r "MUCHISIMO") then	
-	 	 (bind ?*cont* (suma ?*cont* 4))
+	 (if (eq ?r "MUCHISIMO") 
+	 	then (bind ?*cont* (suma ?*cont* 4))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 
-	 (if (eq ?r "TODO EL TIEMPO") then	
-	 	 (bind ?*cont* (suma ?*cont* 5))
+	 (if (eq ?r "TODO EL TIEMPO") 
+	 	then (bind ?*cont* (suma ?*cont* 5))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )	 
 	 (printout t "El paciente en el  test de tipo " ?t " de momento ha obtenido una puntuacion de " ?*cont*  crlf)
@@ -725,7 +716,7 @@
 
 (defrule pregunta_12
  	 (paciente (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e))
-	 (cuestionario (codigo ?ct) (codigo-paciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
+	 (cuestionario (codigo ?ct) (codigopaciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
 	 (test
         (eq ?t FB)
      )
@@ -733,27 +724,27 @@
         (eq ?p 12)
      )	 
 =>
-	 (if (eq ?r "NUNCA") then	
-	 	 (bind ?*cont* (suma ?*cont* 1))
+	 (if (eq ?r "NUNCA") 
+	 	then (bind ?*cont* (suma ?*cont* 1))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 	 
-	 (if (eq ?r "MUY POCO") then	
-	 	 (bind ?*cont* (suma ?*cont* 2))
+	 (if (eq ?r "MUY POCO") 
+	 	then (bind ?*cont* (suma ?*cont* 2))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 
-	 (if (eq ?r "UN POCO") then	
-	 	 (bind ?*cont* (suma ?*cont* 3))
+	 (if (eq ?r "UN POCO") 
+	 	then (bind ?*cont* (suma ?*cont* 3))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
-	 (if (eq ?r "MUCHISIMO") then	
-	 	 (bind ?*cont* (suma ?*cont* 4))
+	 (if (eq ?r "MUCHISIMO") 
+	 	then (bind ?*cont* (suma ?*cont* 4))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 
-	 (if (eq ?r "TODO EL TIEMPO") then	
-	 	 (bind ?*cont* (suma ?*cont* 5))
+	 (if (eq ?r "TODO EL TIEMPO")
+	  	 then (bind ?*cont* (suma ?*cont* 5))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )	 
 	 (printout t "El paciente en el  test de tipo " ?t " de momento ha obtenido una puntuacion de " ?*cont*  crlf)
@@ -762,7 +753,7 @@
 
 (defrule pregunta_13
  	 (paciente (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e))
-	 (cuestionario (codigo ?ct) (codigo-paciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
+	 (cuestionario (codigo ?ct) (codigopaciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
 	 (test
         (eq ?t FB)
      )
@@ -770,27 +761,27 @@
         (eq ?p 13)
      )	 
 =>
-	 (if (eq ?r "NUNCA") then	
-	 	 (bind ?*cont* (suma ?*cont* 1))
+	 (if (eq ?r "NUNCA") 
+	 	 then (bind ?*cont* (suma ?*cont* 1))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 	 
-	 (if (eq ?r "MUY POCO") then	
-	 	 (bind ?*cont* (suma ?*cont* 2))
+	 (if (eq ?r "MUY POCO") 
+	 	 then (bind ?*cont* (suma ?*cont* 2))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 
-	 (if (eq ?r "UN POCO") then	
-	 	 (bind ?*cont* (suma ?*cont* 3))
+	 (if (eq ?r "UN POCO") 
+	 	 then (bind ?*cont* (suma ?*cont* 3))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
-	 (if (eq ?r "MUCHISIMO") then	
-	 	 (bind ?*cont* (suma ?*cont* 4))
+	 (if (eq ?r "MUCHISIMO") 
+	 	 then (bind ?*cont* (suma ?*cont* 4))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 
-	 (if (eq ?r "TODO EL TIEMPO") then	
-	 	 (bind ?*cont* (suma ?*cont* 5))
+	 (if (eq ?r "TODO EL TIEMPO") 
+	 	 then (bind ?*cont* (suma ?*cont* 5))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )	 
 	 (printout t "El paciente en el  test de tipo " ?t " de momento ha obtenido una puntuacion de " ?*cont*  crlf)
@@ -799,7 +790,7 @@
 
 (defrule pregunta_14
  	 (paciente (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e))
-	 (cuestionario (codigo ?ct) (codigo-paciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
+	 (cuestionario (codigo ?ct) (codigopaciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
 	 (test
         (eq ?t FB)
      )
@@ -807,27 +798,27 @@
         (eq ?p 14)
      )	 
 =>
-	 (if (eq ?r "NUNCA") then	
-	 	 (bind ?*cont* (suma ?*cont* 1))
+	 (if (eq ?r "NUNCA") 
+	 	 then (bind ?*cont* (suma ?*cont* 1))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 	 
-	 (if (eq ?r "MUY POCO") then	
-	 	 (bind ?*cont* (suma ?*cont* 2))
+	 (if (eq ?r "MUY POCO") 
+	 	 then (bind ?*cont* (suma ?*cont* 2))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 
-	 (if (eq ?r "UN POCO") then	
-	 	 (bind ?*cont* (suma ?*cont* 3))
+	 (if (eq ?r "UN POCO")
+	  	 then (bind ?*cont* (suma ?*cont* 3))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
-	 (if (eq ?r "MUCHISIMO") then	
-	 	 (bind ?*cont* (suma ?*cont* 4))
+	 (if (eq ?r "MUCHISIMO") 
+	 	 then (bind ?*cont* (suma ?*cont* 4))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 
-	 (if (eq ?r "TODO EL TIEMPO") then	
-	 	 (bind ?*cont* (suma ?*cont* 5))
+	 (if (eq ?r "TODO EL TIEMPO") 
+	 	 then (bind ?*cont* (suma ?*cont* 5))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )	 
 	 (printout t "El paciente en el  test de tipo " ?t " de momento ha obtenido una puntuacion de " ?*cont*  crlf)
@@ -836,7 +827,7 @@
 
 (defrule pregunta_15
  	 (paciente (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e))
-	 (cuestionario (codigo ?ct) (codigo-paciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
+	 (cuestionario (codigo ?ct) (codigopaciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
 	 (test
         (eq ?t FB)
      )
@@ -844,27 +835,27 @@
         (eq ?p 15)
      )	 
 =>
-	 (if (eq ?r "NUNCA") then	
-	 	 (bind ?*cont* (suma ?*cont* 1))
+	 (if (eq ?r "NUNCA") 
+	 	 then (bind ?*cont* (suma ?*cont* 1))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 	 
-	 (if (eq ?r "MUY POCO") then	
-	 	 (bind ?*cont* (suma ?*cont* 2))
+	 (if (eq ?r "MUY POCO") 
+	 	 then (bind ?*cont* (suma ?*cont* 2))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 
-	 (if (eq ?r "UN POCO") then	
-	 	 (bind ?*cont* (suma ?*cont* 3))
+	 (if (eq ?r "UN POCO") 
+	 	 then (bind ?*cont* (suma ?*cont* 3))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
-	 (if (eq ?r "MUCHISIMO") then	
-	 	 (bind ?*cont* (suma ?*cont* 4))
+	 (if (eq ?r "MUCHISIMO") 
+	 	 then (bind ?*cont* (suma ?*cont* 4))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 
-	 (if (eq ?r "TODO EL TIEMPO") then	
-	 	 (bind ?*cont* (suma ?*cont* 5))
+	 (if (eq ?r "TODO EL TIEMPO") 
+	 	 then (bind ?*cont* (suma ?*cont* 5))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )	 
 	 (printout t "El paciente en el  test de tipo " ?t " de momento ha obtenido una puntuacion de " ?*cont*  crlf)
@@ -873,7 +864,7 @@
 
 (defrule pregunta_16
  	 (paciente (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e))
-	 (cuestionario (codigo ?ct) (codigo-paciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
+	 (cuestionario (codigo ?ct) (codigopaciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
 	 (test
         (eq ?t FB)
      )
@@ -881,27 +872,27 @@
         (eq ?p 16)
      )	 
 =>
-	 (if (eq ?r "NUNCA") then	
-	 	 (bind ?*cont* (suma ?*cont* 1))
+	 (if (eq ?r "NUNCA") 
+	 	 then (bind ?*cont* (suma ?*cont* 1))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 	 
-	 (if (eq ?r "MUY POCO") then	
-	 	 (bind ?*cont* (suma ?*cont* 2))
+	 (if (eq ?r "MUY POCO") 
+	 	 then (bind ?*cont* (suma ?*cont* 2))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 
-	 (if (eq ?r "UN POCO") then	
-	 	 (bind ?*cont* (suma ?*cont* 3))
+	 (if (eq ?r "UN POCO") 
+	 	 then (bind ?*cont* (suma ?*cont* 3))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
-	 (if (eq ?r "MUCHISIMO") then	
-	 	 (bind ?*cont* (suma ?*cont* 4))
+	 (if (eq ?r "MUCHISIMO") 
+	 	 then (bind ?*cont* (suma ?*cont* 4))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )
 
-	 (if (eq ?r "TODO EL TIEMPO") then	
-	 	 (bind ?*cont* (suma ?*cont* 5))
+	 (if (eq ?r "TODO EL TIEMPO") 
+	 	 then (bind ?*cont* (suma ?*cont* 5))
  		 (printout t  "El total es "  ?*cont* crlf)
 	 )	 
 	 (printout t "El paciente en el  test de tipo " ?t " de momento ha obtenido una puntuacion de " ?*cont*  crlf)
@@ -910,7 +901,7 @@
 
 (defrule pregunta_17
  	 (paciente (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e))
-	 (cuestionario (codigo ?ct) (codigo-paciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
+	 (cuestionario (codigo ?ct) (codigopaciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
 	 (test
         (eq ?t FB)
      )
@@ -920,31 +911,31 @@
 =>
  
 
-	 (if (eq ?r "NUNCA") then	
-	 	 (bind ?*cont* (suma ?*cont* 1))
+	 (if (eq ?r "NUNCA") 
+	 	 then (bind ?*cont* (suma ?*cont* 1))
  		 (printout t  "El total es "  ?*cont* crlf)
  
 	 )
 	 
-	 (if (eq ?r "MUY POCO") then	
-	 	 (bind ?*cont* (suma ?*cont* 2))
+	 (if (eq ?r "MUY POCO") 
+	 	 then (bind ?*cont* (suma ?*cont* 2))
  		 (printout t  "El total es "  ?*cont* crlf)
  
 	 )
 
-	 (if (eq ?r "UN POCO") then	
-	 	 (bind ?*cont* (suma ?*cont* 3))
+	 (if (eq ?r "UN POCO") 
+	 	 then (bind ?*cont* (suma ?*cont* 3))
  		 (printout t  "El total es "  ?*cont* crlf)
  
 	 )
-	 (if (eq ?r "MUCHISIMO") then	
-	 	 (bind ?*cont* (suma ?*cont* 4))
+	 (if (eq ?r "MUCHISIMO") 
+	 	 then (bind ?*cont* (suma ?*cont* 4))
  		 (printout t  "El total es "  ?*cont* crlf)
  
 	 )
 
-	 (if (eq ?r "TODO EL TIEMPO") then	
-	 	 (bind ?*cont* (suma ?*cont* 5))
+	 (if (eq ?r "TODO EL TIEMPO") 
+	 	 then (bind ?*cont* (suma ?*cont* 5))
  		 (printout t  "El total es "  ?*cont* crlf)
  
 	 )	 
@@ -957,7 +948,7 @@
 
 (defrule diagnostico1 
 	(paciente (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e))
-	(cuestionario (codigo ?ct) (codigo-paciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
+	(cuestionario (codigo ?ct) (codigopaciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
 	(test
         (eq ?t FB)
     )
@@ -968,7 +959,8 @@
 	
  
 =>
-	(if (<= ?*total* 17) then	
+	(if (<= ?*total* 17) 
+	then 
 	(printout t  "yuuydf" ?*total* crlf )
 	(open "C://Users//Adrian//Desktop//Flask//app//Base-Conocimiento-Sistemas.csv" DiagnosticosFB "a")
  
@@ -1038,7 +1030,7 @@
 
 (defrule pregunta_18
 	(paciente2 (codigo ?c2) (nombres $?n2) (apellidos $?a2) (edad ?e2))
-	(cuestionario2 (codigo ?ct2) (codigo-paciente ?cp2) (respuesta ?r2)(tipo ?t2) (pregunta ?p2))
+	(cuestionario2 (codigo ?ct2) (codigopaciente ?cp2) (respuesta ?r2)(tipo ?t2) (pregunta ?p2))
 	 (test
         (eq ?t2 AU)
      )
@@ -1046,25 +1038,26 @@
         (eq ?p2 18)
      )	 
 =>
-	 (if (eq ?r2 "1") then	
-	 	 (bind ?*aux* (suma ?*aux* 1))
- 		 (printout t  "El total es "  ?*aux* crlf)
+	(if 
+		(eq ?r2 "1") 
+	then (bind ?*aux* (suma ?*aux* 1))
+	(printout t  "El total es "  ?*aux* crlf)
  
-	 )
+	)
 	 
-	 (if (eq ?r2 "2") then	
-	 	 (bind ?*aux* (suma ?*aux* 2))
+	 (if (eq ?r2 "2") 
+	 then (bind ?*aux* (suma ?*aux* 2))
  		 (printout t  "El total es "  ?*aux* crlf)
  		 
 	 )
 
-	 (if (eq ?r2 "3") then	
-	 	 (bind ?*aux* (suma ?*aux* 3))
+	 (if (eq ?r2 "3") 
+	 then (bind ?*aux* (suma ?*aux* 3))
  		 (printout t  "El total es "  ?*aux* crlf)
  
 	 )
-	 (if (eq ?r2 "4") then	
-	 	 (bind ?*aux* (suma ?*aux* 4))
+	 (if (eq ?r2 "4") 
+	 then (bind ?*aux* (suma ?*aux* 4))
  		 (printout t  "El total es "  ?*aux* crlf)
  
 	 )
@@ -1078,7 +1071,7 @@
 
 (defrule pregunta_19
 	(paciente2 (codigo ?c2) (nombres $?n2) (apellidos $?a2) (edad ?e2))
-	(cuestionario2 (codigo ?ct2) (codigo-paciente ?cp2) (respuesta ?r2)(tipo ?t2) (pregunta ?p2))
+	(cuestionario2 (codigo ?ct2) (codigopaciente ?cp2) (respuesta ?r2)(tipo ?t2) (pregunta ?p2))
 	 (test
         (eq ?t2 AU)
      )
@@ -1086,22 +1079,22 @@
         (eq ?p2 19)
      )	 
 =>
-	 (if (eq ?r2 "1") then	
-	 	 (bind ?*aux* (suma ?*aux* 1))
+	 (if (eq ?r2 "1") 
+	 	then (bind ?*aux* (suma ?*aux* 1))
  		 (printout t  "El total es "  ?*aux* crlf)
 	 )
 	 
-	 (if (eq ?r2 "2") then	
-	 	 (bind ?*aux* (suma ?*aux* 2))
+	 (if (eq ?r2 "2") 	
+	 	then (bind ?*aux* (suma ?*aux* 2))
  		 (printout t  "El total es "  ?*aux* crlf)
 	 )
 
-	 (if (eq ?r2 "3") then	
-	 	 (bind ?*aux* (suma ?*aux* 3))
+	 (if (eq ?r2 "3") 	
+	 	then (bind ?*aux* (suma ?*aux* 3))
  		 (printout t  "El total es "  ?*aux* crlf)
 	 )
-	 (if (eq ?r2 "4") then	
-	 	 (bind ?*aux* (suma ?*aux* 4))
+	 (if (eq ?r2 "4") 	
+	 	then (bind ?*aux* (suma ?*aux* 4))
  		 (printout t  "El total es "  ?*aux* crlf)
 	 )
 
@@ -1112,7 +1105,7 @@
 
 (defrule pregunta_20
 	(paciente2 (codigo ?c2) (nombres $?n2) (apellidos $?a2) (edad ?e2))
-	(cuestionario2 (codigo ?ct2) (codigo-paciente ?cp2) (respuesta ?r2)(tipo ?t2) (pregunta ?p2))
+	(cuestionario2 (codigo ?ct2) (codigopaciente ?cp2) (respuesta ?r2)(tipo ?t2) (pregunta ?p2))
 	 (test
         (eq ?t2 AU)
      )
@@ -1120,22 +1113,22 @@
         (eq ?p2 20)
      )	 
 =>
-	 (if (eq ?r2 "1") then	
-	 	 (bind ?*aux* (suma ?*aux* 1))
+	 (if (eq ?r2 "1") 	
+	 	then (bind ?*aux* (suma ?*aux* 1))
  		 (printout t  "El total es "  ?*aux* crlf)
 	 )
 	 
-	 (if (eq ?r2 "2") then	
-	 	 (bind ?*aux* (suma ?*aux* 2))
+	 (if (eq ?r2 "2") 	
+	 	then (bind ?*aux* (suma ?*aux* 2))
  		 (printout t  "El total es "  ?*aux* crlf)
 	 )
 
-	 (if (eq ?r2 "3") then	
-	 	 (bind ?*aux* (suma ?*aux* 3))
+	 (if (eq ?r2 "3") 	
+	 	then (bind ?*aux* (suma ?*aux* 3))
  		 (printout t  "El total es "  ?*aux* crlf)
 	 )
-	 (if (eq ?r2 "4") then	
-	 	 (bind ?*aux* (suma ?*aux* 4))
+	 (if (eq ?r2 "4") 	
+	 	then (bind ?*aux* (suma ?*aux* 4))
  		 (printout t  "El total es "  ?*aux* crlf)
 	 )
 
@@ -1145,7 +1138,7 @@
 )
 (defrule pregunta_21
 	(paciente2 (codigo ?c2) (nombres $?n2) (apellidos $?a2) (edad ?e2))
-	(cuestionario2 (codigo ?ct2) (codigo-paciente ?cp2) (respuesta ?r2)(tipo ?t2) (pregunta ?p2))
+	(cuestionario2 (codigo ?ct2) (codigopaciente ?cp2) (respuesta ?r2)(tipo ?t2) (pregunta ?p2))
 	 (test
         (eq ?t2 AU)
      )
@@ -1153,22 +1146,22 @@
         (eq ?p2 21)
      )	 
 =>
-	 (if (eq ?r2 "1") then	
-	 	 (bind ?*aux* (suma ?*aux* 1))
+	 (if (eq ?r2 "1")	
+	 	 then (bind ?*aux* (suma ?*aux* 1))
  		 (printout t  "El total es "  ?*aux* crlf)
 	 )
 	 
-	 (if (eq ?r2 "2") then	
-	 	 (bind ?*aux* (suma ?*aux* 2))
+	 (if (eq ?r2 "2") 	
+	 	then (bind ?*aux* (suma ?*aux* 2))
  		 (printout t  "El total es "  ?*aux* crlf)
 	 )
 
-	 (if (eq ?r2 "3") then	
-	 	 (bind ?*aux* (suma ?*aux* 3))
+	 (if (eq ?r2 "3") 	
+	 	then (bind ?*aux* (suma ?*aux* 3))
  		 (printout t  "El total es "  ?*aux* crlf)
 	 )
-	 (if (eq ?r2 "4") then	
-	 	 (bind ?*aux* (suma ?*aux* 4))
+	 (if (eq ?r2 "4") 	
+	 	then (bind ?*aux* (suma ?*aux* 4))
  		 (printout t  "El total es "  ?*aux* crlf)
 	 )
 
@@ -1179,7 +1172,7 @@
 
 (defrule pregunta_22
 	(paciente2 (codigo ?c2) (nombres $?n2) (apellidos $?a2) (edad ?e2))
-	(cuestionario2 (codigo ?ct2) (codigo-paciente ?cp2) (respuesta ?r2)(tipo ?t2) (pregunta ?p2))
+	(cuestionario2 (codigo ?ct2) (codigopaciente ?cp2) (respuesta ?r2)(tipo ?t2) (pregunta ?p2))
 	 
 	 (test
         (eq ?t2 AU)
@@ -1188,22 +1181,22 @@
         (eq ?p2 22)
      )	 
 =>
-	 (if (eq ?r2 "1") then	
-	 	 (bind ?*aux* (suma ?*aux* 1))
+	 (if (eq ?r2 "1")	
+	 	 then (bind ?*aux* (suma ?*aux* 1))
  		 (printout t  "El total es "  ?*aux* crlf)
 	 )
 	 
-	 (if (eq ?r2 "2") then	
-	 	 (bind ?*aux* (suma ?*aux* 2))
+	 (if (eq ?r2 "2") 	
+	 	then (bind ?*aux* (suma ?*aux* 2))
  		 (printout t  "El total es "  ?*aux* crlf)
 	 )
 
-	 (if (eq ?r2 "3") then	
-	 	 (bind ?*aux* (suma ?*aux* 3))
+	 (if (eq ?r2 "3") 	
+	 	then (bind ?*aux* (suma ?*aux* 3))
  		 (printout t  "El total es "  ?*aux* crlf)
 	 )
-	 (if (eq ?r2 "4") then	
-	 	 (bind ?*aux* (suma ?*aux* 4))
+	 (if (eq ?r2 "4") 	
+	 	then (bind ?*aux* (suma ?*aux* 4))
  		 (printout t  "El total es "  ?*aux* crlf)
 	 )
 
@@ -1214,7 +1207,7 @@
 
 (defrule pregunta_23
 	(paciente2 (codigo ?c2) (nombres $?n2) (apellidos $?a2) (edad ?e2))
-	(cuestionario2 (codigo ?ct2) (codigo-paciente ?cp2) (respuesta ?r2)(tipo ?t2) (pregunta ?p2))
+	(cuestionario2 (codigo ?ct2) (codigopaciente ?cp2) (respuesta ?r2)(tipo ?t2) (pregunta ?p2))
 	 (test
         (eq ?t2 AU)
      )
@@ -1224,22 +1217,22 @@
 =>
 
  
-	 (if (eq ?r2 "1") then	
-	 	 (bind ?*aux* (suma ?*aux* 1))
+	 (if (eq ?r2 "1") 	
+	 	then (bind ?*aux* (suma ?*aux* 1))
  		 (printout t  "El total es "  ?*aux* crlf)
 	 )
 	 
-	 (if (eq ?r2 "2") then	
-	 	 (bind ?*aux* (suma ?*aux* 2))
+	 (if (eq ?r2 "2")	
+		then (bind ?*aux* (suma ?*aux* 2))
  		 (printout t  "El total es "  ?*aux* crlf)
 	 )
 
-	 (if (eq ?r2 "3") then	
-	 	 (bind ?*aux* (suma ?*aux* 3))
+	 (if (eq ?r2 "3") 	
+	 	then (bind ?*aux* (suma ?*aux* 3))
  		 (printout t  "El total es "  ?*aux* crlf)
 	 )
-	 (if (eq ?r2 "4") then	
-	 	 (bind ?*aux* (suma ?*aux* 4))
+	 (if (eq ?r2 "4") 	
+	 	then (bind ?*aux* (suma ?*aux* 4))
  		 (printout t  "El total es "  ?*aux* crlf)
 	 )
 
@@ -1253,7 +1246,7 @@
 
 (defrule diagnostico2 
 	 (paciente2 (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e))
-	 (cuestionario2 (codigo ?ct) (codigo-paciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
+	 (cuestionario2 (codigo ?ct) (codigopaciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
 	 (test
         (eq ?t AU)
      )
@@ -1263,9 +1256,9 @@
 	 
  
 =>
-	(if (<= ?*total2* 5) then	
+	(if (<= ?*total2* 5) 	
   
-	(open "C://Users//Adrian//Desktop//Flask//app//Base-Conocimiento-Sistemas.csv" DiagnosticosAU "a")
+	then (open "C://Users//Adrian//Desktop//Flask//app//Base-Conocimiento-Sistemas.csv" DiagnosticosAU "a")
  
 	(printout DiagnosticosAU "Diagnostico de paciente: " $?n "  " $?a "  Usted tiene baja Autoestima por lo que se recomienda trabajar y confiar en usted mismo  y además  acudir a un psiquiatra" crlf)
 	(close DiagnosticosAU) 
@@ -1308,10 +1301,24 @@
 		)
 	then
 	(open "C://Users//Adrian//Desktop//Flask//app//Base-Conocimiento-Sistemas.csv" DiagnosticosAU "a") 
-	(printout DiagnosticosAU   "Diagnostico de paciente: " $?n "  " $?a "Felicidades usted tiene una autoestima alta siga así" crlf)
+	(printout DiagnosticosAU   "Diagnostico de paciente: " $?n "  " $?a "Usted se encuentra emocionalmente estable y fuera de peligro siga así" crlf)
 	(close DiagnosticosAU)
 
 	)
+
+	(if 
+		(and
+			(>= ?*total2* 21)   
+			(<= ?*total2* 24) 
+ 
+		)
+	then
+	(open "C://Users//Adrian//Desktop//Flask//app//Base-Conocimiento-Sistemas.csv" DiagnosticosAU "a") 
+	(printout DiagnosticosAU   "Diagnostico de paciente: " $?n "  " $?a "Felicidades usted tiene una autoestima alta a sonreirle a la vida" crlf)
+	(close DiagnosticosAU)
+
+	)
+	
 
 	;(bind ?*aux* 0)	
  

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salud Mental</title>
+    <title>Diagnostico</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/layout.css') }}">
 </head>
 
@@ -13,24 +13,21 @@
     <header>
         <img class="Banner" src="../static/recursos/Banner.png" />
     </header>
-    <h1>Sistema  Experto  de Salud Mental</h1>
-    <form id="formIndex"method='GET' action='/Test1'>
-        <input id="inTest1" type="submit" value="Test de Fobia Social">
-    </form>
-    
-    <form id="formIndex" method='GET' action='/Test2'>
-        <input id="inTest2" type="submit" value="Test de  Autoestima ">
-    </form>
-    <br>
-    <br>
-    <img class="ImagenIzq" src="../static/recursos/autoestima-es-clave.jpg" width="35%"  height="250"  >
-     
-    <img class="ImagenDere" src="../static/recursos/Fobia social.jpg" width="35%"  height="250"   >
-    
+    <section>
+        <article>
+            <table border='2'>            
+                {% for i in range(0, tam) %}
+                    <tr>
+                        <td> {{ lista[i] }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+            <input id="Consultar" type="submit" value="Consultar Diagnostico" action="/Diagnostico">
+        </article>
+    </section>
 
 
-
-    
     <footer>
         <!--Pie de pagina-->
         <fieldset id="f1">
@@ -42,16 +39,15 @@
                 Politécnica Salesiana &#32; &#8226;
                 <a href="mailto:lcabrerab@est.ups.edu.ec">lcabrerab@est.ups.edu.ec &#32; &#8226;</a>
                 <a href="mailto:tlemaj1@est.ups.edu.ec">tlemaj1@est.ups.edu.ec &#32; </a>
-                
+
             </address>
-            <br>   
+            <br>
 
             <img class="ImagenCentro" src="../static/recursos/logo.png" width="25%">
-             
+
         </fieldset>
 
     </footer>
-
 </body>
 
 </html>

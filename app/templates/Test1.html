@@ -20,203 +20,196 @@
             <!--<h3>Resultado de la carga de la base de conocimiento => {{ resultadoCarga }} {{ estado }} </h3>-->
             
             {% if estado==True %} <!--Llamo a la variable estaod  de mi archivo Sistema.py-->
-            <form id="Formulario" action='/crearPtest1' >
-                <br>
-                <label for="Codigo">Codigo:</label>
-                <input type="text" id="Codigo" size="40" />
-
-                <label for="Nombres">Nombres: </label>
-                <input type="text" id="Nombres" size="40" />
-                
-                <label for="Apellidos">Apellidos: </label>
-                <input type="text" id="Apellidos" size="40" />
-                <br />
-                <br />
-                <br />
-                <br />
-                <label for="Edad">Edad:</label>
-                <input type="text" id="Edad" size="40" />
-            
-                <br />
-                <br />
-                
-
-            </form>
-            <form id="preguntasT1"  >
-                 <br>
+          
+            <form method='POST' id="preguntasT1"  action='/crearPtest1' >
+              <br>
+              <label for="codigo">Codigo:</label>
+              <input type="text" name = "codigo" id="codigo" size="40" />
+              <label for="nombres">Nombres: </label>
+              <input type="text" id="nombre" name = "nombre"  size="40" />
+              <br />
+              <br />
+              <label for="apellidos">Apellidos: </label>
+              <input type="text" id="apellido" name = "apellido"  size="40" />
+             
+              <label for="edad">Edad:</label>
+              <input type="text" id="edad"  name = "edad"  size="40" />
+          
+              <br />
+              <br />
                  
-                <label for="Nombres">1. Me da miedo estar ante gente con autoridad. </label>
-                <select name="select">
-                    <option value="value1"selected>Nunca</option>
-                    <option value="value2" >Muy poco</option>
-                    <option value="value3">Un poco</option>
-                    <option value="value4">Muchísimo</option>
-                    <option value="value5">Todo el Tiempo</option>
+                <label for="respuesta1">1. Me da miedo estar ante gente con autoridad. </label>
+                <select name="respuesta1" id = "respuesta1">
+                    <option value="NUNCA"selected>NUNCA</option>
+                    <option value="MUY POCO" >MUY POCO</option>
+                    <option value="UN POCO">UN POCO</option>
+                    <option value="MUCHISIMO">MUCHISIMO</option>
+                    <option value="TODO EL TIEMPO">TODO EL TIEMPO</option>
                   </select>
                 <br>
                 <br>
-                <label for="Apellidos">2.Me molesta sonrojarme delante de la gente. </label>
-                <select name="select">
-                    <option value="value1"selected>Nunca</option>
-                    <option value="value2" >Muy poco</option>
-                    <option value="value3">Un poco</option>
-                    <option value="value4">Muchísimo</option>
-                    <option value="value5">Todo el Tiempo</option>
+                <label for="respuesta2">2.Me molesta sonrojarme delante de la gente. </label>
+                <select name="respuesta2" id = "respuesta2">
+                    <option value="NUNCA"selected>NUNCA</option>
+                    <option value="MUY POCO" >MUY POCO</option>
+                    <option value="UN POCO">UN POCO</option>
+                    <option value="MUCHISIMO">MUCHISIMO</option>
+                    <option value="TODO EL TIEMPO">TODO EL TIEMPO</option>
                   </select>
                 <br/>
                 <br/>
-                <label for="Cedula">3.Las fiestas y acontecimientos sociales me asustan.</label>
-                <select name="select">
-                    <option value="value1"selected>Nunca</option>
-                    <option value="value2" >Muy poco</option>
-                    <option value="value3">Un poco</option>
-                    <option value="value4">Muchísimo</option>
-                    <option value="value5">Todo el Tiempo</option>
+                <label for="respuesta3">3.Las fiestas y acontecimientos sociales me asustan.</label>
+                <select name="respuesta3" id = "respuesta3">
+                    <option value="NUNCA"selected>NUNCA</option>
+                    <option value="MUY POCO" >MUY POCO</option>
+                    <option value="UN POCO">UN POCO</option>
+                    <option value="MUCHISIMO">MUCHISIMO</option>
+                    <option value="TODO EL TIEMPO">TODO EL TIEMPO</option>
                   </select>
                 <br/>
                 <br/>
-                <label for="Correo">4.Evito hablar con la gente que no conozco.</label>
-                <select name="select">
-                    <option value="value1"selected>Nunca</option>
-                    <option value="value2" >Muy poco</option>
-                    <option value="value3">Un poco</option>
-                    <option value="value4">Muchísimo</option>
-                    <option value="value5">Todo el Tiempo</option>
+                <label for="respuesta4">4.Evito hablar con la gente que no conozco.</label>
+                <select name="respuesta4" id = "respuesta4">
+                    <option value="NUNCA"selected>NUNCA</option>
+                    <option value="MUY POCO" >MUY POCO</option>
+                    <option value="UN POCO">UN POCO</option>
+                    <option value="MUCHISIMO">MUCHISIMO</option>
+                    <option value="TODO EL TIEMPO">TODO EL TIEMPO</option>
                   </select>
                 <br/>
                 <br/>
-                <label for="Correo">5.Cuando me critican me alarmo mucho.</label>
-                <select name="select">
-                    <option value="value1"selected>Nunca</option>
-                    <option value="value2" >Muy poco</option>
-                    <option value="value3">Un poco</option>
-                    <option value="value4">Muchísimo</option>
-                    <option value="value5">Todo el Tiempo</option>
+                <label for="respuesta5">5.Cuando me critican me alarmo mucho.</label>
+                <select name="respuesta5" id = "respuesta5">
+                    <option value="NUNCA"selected>NUNCA</option>
+                    <option value="MUY POCO" >MUY POCO</option>
+                    <option value="UN POCO">UN POCO</option>
+                    <option value="MUCHISIMO">MUCHISIMO</option>
+                    <option value="TODO EL TIEMPO">TODO EL TIEMPO</option>
                   </select>
                 <br/>
                 <br/>
-                <label for="Correo">6.El miedo a sentirme avergonzado me lleva a evitar hacer cosas o a hablar con la gente.</label>
-                <select name="select">
-                    <option value="value1"selected>Nunca</option>
-                    <option value="value2" >Muy poco</option>
-                    <option value="value3">Un poco</option>
-                    <option value="value4">Muchísimo</option>
-                    <option value="value5">Todo el Tiempo</option>
+                <label for="respuesta6">6.El miedo a sentirme avergonzado me lleva a evitar hacer cosas o a hablar con la gente.</label>
+                <select name="respuesta6" id = "respuesta6">
+                    <option value="NUNCA"selected>NUNCA</option>
+                    <option value="MUY POCO" >MUY POCO</option>
+                    <option value="UN POCO">UN POCO</option>
+                    <option value="MUCHISIMO">MUCHISIMO</option>
+                    <option value="TODO EL TIEMPO">TODO EL TIEMPO</option>
                   </select>
                 <br/>
                 <br/>
-                <label for="Correo">7.
+                <label for="respuesta7">7.
                     Sudar delante de la gente me incomoda.</label>
-                    <select name="select">
-                        <option value="value1"selected>Nunca</option>
-                        <option value="value2" >Muy poco</option>
-                        <option value="value3">Un poco</option>
-                        <option value="value4">Muchísimo</option>
-                        <option value="value5">Todo el Tiempo</option>
+                    <select name="respuesta7" id = "respuesta7">
+                        <option value="NUNCA"selected>NUNCA</option>
+                        <option value="MUY POCO" >MUY POCO</option>
+                        <option value="UN POCO">UN POCO</option>
+                        <option value="MUCHISIMO">MUCHISIMO</option>
+                        <option value="TODO EL TIEMPO">TODO EL TIEMPO</option>
                       </select>
                 <br/>
                 <br/>
-                <label for="Correo">8.Evito ir a fiestas.</label>
-                <select name="select">
-                    <option value="value1"selected>Nunca</option>
-                    <option value="value2" >Muy poco</option>
-                    <option value="value3">Un poco</option>
-                    <option value="value4">Muchísimo</option>
-                    <option value="value5">Todo el Tiempo</option>
+                <label for="respuesta8">8.Evito ir a fiestas.</label>
+                <select name="respuesta8" id = "respuesta8">
+                    <option value="NUNCA"selected>NUNCA</option>
+                    <option value="MUY POCO" >MUY POCO</option>
+                    <option value="UN POCO">UN POCO</option>
+                    <option value="MUCHISIMO">MUCHISIMO</option>
+                    <option value="TODO EL TIEMPO">TODO EL TIEMPO</option>
                   </select>
                 <br/>
                 <br/>
-                <label for="Correo">9.Evito las actividades en las que soy el centro de atención.</label>
-                <select name="select">
-                    <option value="value1"selected>Nunca</option>
-                    <option value="value2" >Muy poco</option>
-                    <option value="value3">Un poco</option>
-                    <option value="value4">Muchísimo</option>
-                    <option value="value5">Todo el Tiempo</option>
+                <label for="respuesta9">9.Evito las actividades en las que soy el centro de atención.</label>
+                <select name="respuesta9" id = "respuesta9">
+                    <option value="NUNCA"selected>NUNCA</option>
+                    <option value="MUY POCO" >MUY POCO</option>
+                    <option value="UN POCO">UN POCO</option>
+                    <option value="MUCHISIMO">MUCHISIMO</option>
+                    <option value="TODO EL TIEMPO">TODO EL TIEMPO</option>
                   </select>
                 <br/>
                 <br/>
-                <label for="Correo">10.Hablar con desconocidos me asusta.</label>
-                <select name="select">
-                    <option value="value1"selected>Nunca</option>
-                    <option value="value2" >Muy poco</option>
-                    <option value="value3">Un poco</option>
-                    <option value="value4">Muchísimo</option>
-                    <option value="value5">Todo el Tiempo</option>
+                <label for="respuesta10">10.Hablar con desconocidos me asusta.</label>
+                <select name="respuesta10" id = "respuesta10">
+                    <option value="NUNCA"selected>NUNCA</option>
+                    <option value="MUY POCO" >MUY POCO</option>
+                    <option value="UN POCO">UN POCO</option>
+                    <option value="MUCHISIMO">MUCHISIMO</option>
+                    <option value="TODO EL TIEMPO">TODO EL TIEMPO</option>
                   </select>
                 <br/>
                 <br/>
-                <label for="Correo">11.Evito tener que hablar ante una audiencia.</label>
-                <select name="select">
-                    <option value="value1"selected>Nunca</option>
-                    <option value="value2" >Muy poco</option>
-                    <option value="value3">Un poco</option>
-                    <option value="value4">Muchísimo</option>
-                    <option value="value5">Todo el Tiempo</option>
+                <label for="respuesta11">11.Evito tener que hablar ante una audiencia.</label>
+                <select name="respuesta11" id = "respuesta11">
+                    <option value="NUNCA"selected>NUNCA</option>
+                    <option value="MUY POCO" >MUY POCO</option>
+                    <option value="UN POCO">UN POCO</option>
+                    <option value="MUCHISIMO">MUCHISIMO</option>
+                    <option value="TODO EL TIEMPO">TODO EL TIEMPO</option>
                   </select>
                 <br/>
                 <br/>
-                <label for="Correo">12.Haría cualquier cosa para evitar ser criticado.</label>
-                <select name="select">
-                    <option value="value1"selected>Nunca</option>
-                    <option value="value2" >Muy poco</option>
-                    <option value="value3">Un poco</option>
-                    <option value="value4">Muchísimo</option>
-                    <option value="value5">Todo el Tiempo</option>
+                <label for="respuesta12">12.Haría cualquier cosa para evitar ser criticado.</label>
+                <select name="respuesta12"id = "respuesta12">
+                    <option value="NUNCA"selected>NUNCA</option>
+                    <option value="MUY POCO" >MUY POCO</option>
+                    <option value="UN POCO">UN POCO</option>
+                    <option value="MUCHISIMO">MUCHISIMO</option>
+                    <option value="TODO EL TIEMPO">TODO EL TIEMPO</option>
                   </select>
                 <br/>
                 <br/>
-                <label for="Correo">13.Me molesta tener palpitaciones cuando estoy entre la gente.</label>
-                <select name="select">
-                    <option value="value1"selected>Nunca</option>
-                    <option value="value2" >Muy poco</option>
-                    <option value="value3">Un poco</option>
-                    <option value="value4">Muchísimo</option>
-                    <option value="value5">Todo el Tiempo</option>
+                <label for="respuesta13">13.Me molesta tener palpitaciones cuando estoy entre la gente.</label>
+                <select name="respuesta13" id = "respuesta13">
+                    <option value="NUNCA"selected>NUNCA</option>
+                    <option value="MUY POCO" >MUY POCO</option>
+                    <option value="UN POCO">UN POCO</option>
+                    <option value="MUCHISIMO">MUCHISIMO</option>
+                    <option value="TODO EL TIEMPO">TODO EL TIEMPO</option>
                   </select>
                 <br/>
                 <br/>
-                <label for="Correo">14.Me atemoriza hacer cosas cuando la gente me mira.</label>
-                <select name="select">
-                    <option value="value1"selected>Nunca</option>
-                    <option value="value2" >Muy poco</option>
-                    <option value="value3">Un poco</option>
-                    <option value="value4">Muchísimo</option>
-                    <option value="value5">Todo el Tiempo</option>
+                <label for="respuesta14">14.Me atemoriza hacer cosas cuando la gente me mira.</label>
+                <select name="respuesta14" id = "respuesta14">
+                    <option value="NUNCA"selected>NUNCA</option>
+                    <option value="MUY POCO" >MUY POCO</option>
+                    <option value="UN POCO">UN POCO</option>
+                    <option value="MUCHISIMO">MUCHISIMO</option>
+                    <option value="TODO EL TIEMPO">TODO EL TIEMPO</option>
                   </select>
                 <br/>
                 <br/>
-                <label for="Correo">15.Sentirme avergonzado o parecer estúpido son mis peores miedos.</label>
-                <select name="select">
-                    <option value="value1"selected>Nunca</option>
-                    <option value="value2" >Muy poco</option>
-                    <option value="value3">Un poco</option>
-                    <option value="value4">Muchísimo</option>
-                    <option value="value5">Todo el Tiempo</option>
+                <label for="respuesta15">15.Sentirme avergonzado o parecer estúpido son mis peores miedos.</label>
+                <select name="respuesta15" id = "respuesta15">
+                    <option value="NUNCA"selected>NUNCA</option>
+                    <option value="MUY POCO" >MUY POCO</option>
+                    <option value="UN POCO">UN POCO</option>
+                    <option value="MUCHISIMO">MUCHISIMO</option>
+                    <option value="TODO EL TIEMPO">TODO EL TIEMPO</option>
                   </select>
                 <br/>
                 <br/>
-                <label for="Correo">16.Evito hablar a cualquier persona importante.</label>
-                <select name="select">
-                    <option value="value1"selected>Nunca</option>
-                    <option value="value2" >Muy poco</option>
-                    <option value="value3">Un poco</option>
-                    <option value="value4">Muchísimo</option>
-                    <option value="value5">Todo el Tiempo</option>
+                <label for="respuesta16">16.Evito hablar a cualquier persona importante.</label>
+                <select name="respuesta16" id = "respuesta16">
+                    <option value="NUNCA"selected>NUNCA</option>
+                    <option value="MUY POCO" >MUY POCO</option>
+                    <option value="UN POCO">UN POCO</option>
+                    <option value="MUCHISIMO">MUCHISIMO</option>
+                    <option value="TODO EL TIEMPO">TODO EL TIEMPO</option>
                   </select>
                 <br/>
                 <br/>
-                <label for="Correo">17.Me incomoda temblar o agitarme delante de la gente.</label>
-                <select name="select">
-                    <option value="value1"selected>Nunca</option>
-                    <option value="value2" >Muy poco</option>
-                    <option value="value3">Un poco</option>
-                    <option value="value4">Muchísimo</option>
-                    <option value="value5">Todo el Tiempo</option>
+                <label for="respuesta17">17.Me incomoda temblar o agitarme delante de la gente.</label>
+                <select name="respuesta17" id = "respuesta17">
+                    <option value="NUNCA"selected>NUNCA</option>
+                    <option value="MUY POCO" >MUY POCO</option>
+                    <option value="UN POCO">UN POCO</option>
+                    <option value="MUCHISIMO">MUCHISIMO</option>
+                    <option value="TODO EL TIEMPO">TODO EL TIEMPO</option>
                   </select>
                 <br/>
                   
-              <input id="Consultar" type="submit" value="Consultar">
+              <input id="Consultar" type="submit" value="Consultar" action="/crearPtest1">
                 <br/>
                  
 
@@ -230,23 +223,25 @@
 
 
     <footer>
-        <!--Pie de pagina-->
-        <fieldset id="f1">
-            <address>
-                <!--Provee información de contacto del autor-->
+      <!--Pie de pagina-->
+      <fieldset id="f1">
+          <address>
+              <!--Provee información de contacto del autor-->
 
-                <br>
-                &nbsp;&nbsp; Luis Adrián Cabrera Bermeo &#8226; Tonny Roger Lema Jaramillo &#8226; Universidad Politécnica Salesiana &#32; &#8226; 
-                <a href="mailto:lcabrerab@est.ups.edu.ec">lcabrerab@est.ups.edu.ec &#32; &#8226;</a>
-                <a href="mailto:tlemaj1@est.ups.edu.ec">tlemaj1@est.ups.edu.ec &#32;  </a>               
-            </address>
-            <br>
+              <br>
+              &nbsp;&nbsp; Luis Adrián Cabrera Bermeo &#8226; Tonny Roger Lema Jaramillo &#8226; Universidad
+              Politécnica Salesiana &#32; &#8226;
+              <a href="mailto:lcabrerab@est.ups.edu.ec">lcabrerab@est.ups.edu.ec &#32; &#8226;</a>
+              <a href="mailto:tlemaj1@est.ups.edu.ec">tlemaj1@est.ups.edu.ec &#32; </a>
+              
+          </address>
+          <br>   
 
-            <img class="ImagenCentro" src="../static/recursos/logo.png" width="25%">
-            <p id="Copy"><strong>&#32; &#169; Todos los Derechos Reservados </strong> </p>
-        </fieldset>
+          <img class="ImagenCentro" src="../static/recursos/logo.png" width="25%">
+           
+      </fieldset>
 
-    </footer>
+  </footer>
 </body>
 
 </html>

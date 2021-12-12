@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,9 +8,147 @@
     <title>Test2</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/layout.css') }}">
 </head>
+
 <body>
     <header>
         <img class="Banner" src="../static/recursos/Banner.png" />
     </header>
+    <br>
+    <section>
+        <article id="articleForm">
+            {% if estado==True %}
+
+            <form method='POST' id="preguntasT2" action='/crearPtest2'>
+
+                <br>
+                <label for="codigo">Codigo:</label>
+                <input type="text" name="codigo" id="codigo" size="40" />
+                <label for="nombres">Nombres: </label>
+                <input type="text" id="nombre" name="nombre" size="40" />
+                <br />
+                <br />
+                <label for="apellidos">Apellidos: </label>
+                <input type="text" id="apellido" name="apellido" size="40" />
+
+                <label for="edad">Edad:</label>
+                <input type="text" id="edad" name="edad" size="40" />
+
+                <br />
+                <br />
+
+
+
+
+                <aside>
+                    <ol>
+                        <li>Muy en desacuerdo</li>
+                        <li>En desacuerdo.</li>
+                        <li>De acuerdo.</li>
+                        <li>Muy de acuerdo.</li>
+                    </ol>
+                </aside>
+                <br><br><br /><br />
+
+ 
+                <br><br><br><br><br>
+                 <label for="html" id="lbAuto">
+
+                    Siento que soy una persona digna de aprecio, al menos en igual medida que los demás.</label>
+                    <select name="respuesta1" id = "respuesta1">
+                        <option value="1"selected>1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                      </select>
+                 <br><br><br><br>
+                <label for="html" id="lbAuto">
+
+
+                    Creo que tengo un buen número de cualidades.</label>
+                    <select name="respuesta2" id = "respuesta2">
+                        <option value="1"selected>1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                      </select>
+                <br><br><br><br>
+                 <label for="html" id="lbAuto">
+
+                    En general, me inclino a pensar que soy un fracasado/a.</label>
+                    <select name="respuesta3" id = "respuesta3">
+                        <option value="1"selected>1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                      </select>
+
+                <br><br><br><br>
+                 <label for="html" id="lbAuto">
+
+                    Soy capaz de hacer las cosas tan bien como la mayoría de la gente.</label>
+                    <select name="respuesta4" id = "respuesta4">
+                        <option value="1"selected>1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                      </select>
+
+
+                <p></p>
+                <br><br><br><br>
+                 <label for="html" id="lbAuto">
+                    Siento que no tengo muchos motivos para sentirme orgulloso/a de mi.</label>
+                    <select name="respuesta5" id = "respuesta5">
+                        <option value="1"selected>1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                      </select>
+ 
+
+
+                <p></p>
+                <br><br><br><br>
+                 <label for="html" id="lbAuto">
+                    Tengo una actitud positiva hacia mi mismo/a.</label>
+                    <select name="respuesta6" id = "respuesta6">
+                        <option value="1"selected>1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                      </select>
+
+                <br><br> 
+                <input id="Consultar" type="submit" value="Consultar">
+
+
+
+            </form>
+            {% else %}
+            <h3>No Cargó</h3>
+            {% endif %}
+        </article>
+    </section>
+    <footer>
+        <!--Pie de pagina-->
+        <fieldset id="f1">
+            <address>
+                <!--Provee información de contacto del autor-->
+
+                <br>
+                &nbsp;&nbsp; Luis Adrián Cabrera Bermeo &#8226; Tonny Roger Lema Jaramillo &#8226; Universidad
+                Politécnica Salesiana &#32; &#8226;
+                <a href="mailto:lcabrerab@est.ups.edu.ec">lcabrerab@est.ups.edu.ec &#32; &#8226;</a>
+                <a href="mailto:tlemaj1@est.ups.edu.ec">tlemaj1@est.ups.edu.ec &#32; </a>
+
+            </address>
+            <br>
+
+            <img class="ImagenCentro" src="../static/recursos/logo.png" width="25%">
+
+        </fieldset>
+
+    </footer>
 </body>
+
 </html>
