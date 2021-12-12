@@ -75,7 +75,7 @@ input#inTest2{
     border: 5px solid black; 
  }   
  
- input#inTest1, input#Consultar:hover{   
+ input#inTest1:hover, input#Consultar:hover{   
    background-color: cyan;
  
 }

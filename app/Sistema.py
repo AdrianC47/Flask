@@ -19,6 +19,7 @@ def cargarTest_1():
     print('Cargar BD')
    
     try:
+        entorno.clear 
         entorno.load('Base-Conocimiento-Sistemas.clp')#Cargo mi base de conocimiento
         return render_template('Test1.html', resultadoCarga='Exitoso', estado=True)#Estas variables usualmente son enviadas a los archivos html
     except Exception:
