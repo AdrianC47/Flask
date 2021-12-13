@@ -1,5 +1,6 @@
 import clips
 import traceback
+import pandas as pd
 from flask import Flask, render_template, request, url_for, redirect, jsonify #Clase importada 
 from flask_mysqldb import MySQL
 
@@ -23,7 +24,7 @@ def cargarTest_1():
     try:
          
         
-       # entorno.load('Base-Conocimiento-Sistemas.clp')#Cargo mi base de conocimiento
+        #entorno.load('Base-Conocimiento-Sistemas.clp')#Cargo mi base de conocimiento
         return render_template('Test1.html', resultadoCarga='Exitoso', estado=True)#Estas variables usualmente son enviadas a los archivos html
     except Exception:
         traceback.print_exc()
@@ -94,7 +95,7 @@ def crearPtest1():
         #print(template)
         #hecho = template.assert_fact(codigo=codigo, nombre=nombre, apellido=apellido)
      
-        instanciap = clasepaciente.make_instance('paciente01',codigo=codigo, nombres=(nombre,""), apellidos=(apellido,""), edad=edad)
+        instanciap = clasepaciente.make_instance('paciente01',codigo=codigo, nombres=(nombre), apellidos=(apellido), edad=edad)
         instancia1 = clasecuestionario.make_instance('cuestionario1p1',codigo=1, codigopaciente=codigo, respuesta =respuesta1, tipo= "FB" ,pregunta=1)
         instancia2 = clasecuestionario.make_instance('cuestionario1p2',codigo=1, codigopaciente=codigo, respuesta =respuesta2, tipo="FB" ,pregunta=2)
         instancia3 = clasecuestionario.make_instance('cuestionario1p3',codigo=1, codigopaciente=codigo, respuesta =respuesta3, tipo="FB" ,pregunta=3)
@@ -139,14 +140,16 @@ def crearPtest1():
         
         res = ''
         instancias = []
-
+        arreglo=""
         for h in entorno.instances():
             res+=str(h)
-            instancias.append("(make-instance" +str(h)+")")
+            #instancias.append("(make-instance " +str(h)+")")
+            instancias.append( str(h))
             print(instanciap)
-            
-        
-    
+            arreglo= pd.DataFrame(instancias)
+             
+       
+        arreglo.to_csv('pacientesFobiaSocial.csv',index=False,header=False)
         return render_template('Diagnostico.html',tam=len(instancias),lista=instancias )
     #entorno.load('Base-Conocimiento-Sistemas.clp')
  
@@ -176,7 +179,7 @@ def crearPtest2():
         #print(template)
         #hecho = template.assert_fact(codigo=codigo, nombre=nombre, apellido=apellido)
      
-        instanciap = clasepaciente2.make_instance('paciente02',codigo=codigo, nombres=(nombre,""), apellidos=(apellido,""), edad=edad)
+        instanciap = clasepaciente2.make_instance('paciente02',codigo=codigo, nombres=(nombre), apellidos=(apellido), edad=edad)
         instancia1 = clasecuestionario2.make_instance('cuestionario1p1',codigo=1, codigopaciente=codigo, respuesta =respuesta1, tipo= "AU" ,pregunta=18)
         instancia2 = clasecuestionario2.make_instance('cuestionario1p2',codigo=1, codigopaciente=codigo, respuesta =respuesta2, tipo="AU" ,pregunta=19)
         instancia3 = clasecuestionario2.make_instance('cuestionario1p3',codigo=1, codigopaciente=codigo, respuesta =respuesta3, tipo="AU" ,pregunta=20)
@@ -201,14 +204,19 @@ def crearPtest2():
         
         res = ''
         instancias = []
-
+        arreglo2 =[]
         for h in entorno.instances():
             res+=str(h)
-            instancias.append("(make-instance" +str(h)+")")
+            #instancias.append("(make-instance " +str(h)+")")
+            instancias.append( str(h))
             print(instanciap)
+            arreglo2= pd.DataFrame(instancias)
             
-        
-    
+           
+       
+        arreglo2.to_csv('pacientesAutoestima.csv',index=False,header=False)
+        entorno.load_instances('pacientesAutoestima.csv')
+        entorno.run()
         return render_template('Diagnostico.html',tam=len(instancias),lista=instancias )
     #entorno.load('Base-Conocimiento-Sistemas.clp')
  

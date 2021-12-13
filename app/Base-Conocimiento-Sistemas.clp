@@ -6,16 +6,15 @@
         (range 1 13373)
         (default 1)
     )
-    (multislot nombres
+    (slot nombres
         (type STRING)
         (default ?DERIVE)
-		(cardinality 1 2)
  
     )
-    (multislot apellidos
+    (slot apellidos
         (type STRING)
         (default ?DERIVE)
-		(cardinality 1 2)
+ 
     )
 
 	(slot edad
@@ -40,15 +39,14 @@
         (range 1 13373)
         (default 1)
     )
-    (multislot nombres
+    (slot nombres
         (type STRING)
         (default ?DERIVE)
-		(cardinality 1 2)
+ 
     )
-    (multislot apellidos
+    (slot apellidos
         (type STRING)
         (default ?DERIVE)
-		(cardinality 1 2)
     )
 
 	(slot edad
@@ -132,15 +130,15 @@
         (range 1 13373)
         (default 1)
     )
-    (multislot nombres
+    (slot nombres
         (type STRING)
         (default ?DERIVE)
-		(cardinality 1 2)
+ 
     )
-    (multislot apellidos
+    (slot apellidos
         (type STRING)
         (default ?DERIVE)
-		(cardinality 1 2)
+ 
     )
 
 	(slot edad
@@ -156,15 +154,15 @@
         (range 1 13373)
         (default 1)
     )
-    (multislot nombres
+    (slot nombres
         (type STRING)
         (default ?DERIVE)
-		(cardinality 1 2)
+ 
     )
-    (multislot apellidos
+    (slot apellidos
         (type STRING)
         (default ?DERIVE)
-		(cardinality 1 2)
+ 
     )
 
 	(slot edad
@@ -255,7 +253,7 @@
 (defglobal ?*total2* = 0) 
  
 (defrule match-paciente
-	(object  (is-a paciente) (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e))	
+	(object  (is-a paciente) (codigo ?c) (nombres ?n) (apellidos ?a) (edad ?e))	
 	(object  (is-a cuestionario)  (codigo ?ct)(codigopaciente ?cp) (respuesta ?r)  (tipo ?t) (pregunta ?p))	  
  
     (test
@@ -266,10 +264,10 @@
  
 =>
  
-	(printout t "El Paciente  " $?n " con  el codigo: " ?cp" es evaluado en el cuestionario de Fobia Social de codigo "  ?ct  crlf)
+	(printout t "El Paciente  " ?n " con  el codigo: " ?cp" es evaluado en el cuestionario de Fobia Social de codigo "  ?ct  crlf)
  
 
-	(assert (paciente (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e)))
+	(assert (paciente (codigo ?c) (nombres ?n) (apellidos ?a) (edad ?e)))
 	(assert (cuestionario (codigo ?ct) (codigopaciente ?cp) (respuesta ?r)(tipo ?t) (pregunta ?p) ))
 
 
@@ -277,7 +275,7 @@
 
 
 (defrule match-paciente2
-	(object  (is-a paciente2) (codigo ?c2) (nombres $?n2) (apellidos $?a2) (edad ?e2))	
+	(object  (is-a paciente2) (codigo ?c2) (nombres ?n2) (apellidos ?a2) (edad ?e2))	
 	(object  (is-a cuestionario2)  (codigo ?ct2)(codigopaciente ?cp2) (respuesta ?r2)  (tipo ?t2) (pregunta ?p2))	  
  
     (test
@@ -287,10 +285,10 @@
  
 =>
  
-	(printout t "El Paciente  " $?n2 " con  el codigo: " ?cp2" es evaluado en el cuestionario de Autoestima de  codigo "  ?ct2  crlf)
+	(printout t "El Paciente  " ?n2 " con  el codigo: " ?cp2" es evaluado en el cuestionario de Autoestima de  codigo "  ?ct2  crlf)
  
  
-	(assert (paciente2 (codigo ?c2) (nombres $?n2) (apellidos $?a2) (edad ?e2)))
+	(assert (paciente2 (codigo ?c2) (nombres ?n2) (apellidos ?a2) (edad ?e2)))
 	(assert (cuestionario2 (codigo ?ct2) (codigopaciente ?cp2) (respuesta ?r2)(tipo ?t2) (pregunta ?p2)))
 
  
@@ -298,10 +296,10 @@
 
 
 (defrule pregunta_1
- 	 (paciente (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e))
+ 	 (paciente (codigo ?c) (nombres ?n) (apellidos ?a) (edad ?e))
 	 (cuestionario (codigo ?ct) (codigopaciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
 	 (test
-        (eq ?t FB)
+        (eq ?t "FB")
      ) 
 	 
 	 (test
@@ -345,10 +343,10 @@
  
 )
 (defrule pregunta_2
- 	 (paciente (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e))
+ 	 (paciente (codigo ?c) (nombres ?n) (apellidos ?a) (edad ?e))
 	 (cuestionario (codigo ?ct) (codigopaciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
 	 (test
-        (eq ?t FB)
+        (eq ?t "FB")
      ) 
 	 (test
         (eq ?p 2)
@@ -382,10 +380,10 @@
 )
 
 (defrule pregunta_3
- 	 (paciente (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e))
+ 	 (paciente (codigo ?c) (nombres ?n) (apellidos ?a) (edad ?e))
 	 (cuestionario (codigo ?ct) (codigopaciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
 	 (test
-        (eq ?t FB)
+        (eq ?t "FB")
      )
 	 (test
         (eq ?p 3)
@@ -419,10 +417,10 @@
 )
 
 (defrule pregunta_4
- 	 (paciente (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e))
+ 	 (paciente (codigo ?c) (nombres ?n) (apellidos ?a) (edad ?e))
 	 (cuestionario (codigo ?ct) (codigopaciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
 	 (test
-        (eq ?t FB)
+        (eq ?t "FB")
      ) 
 	 (test
         (eq ?p 4)
@@ -455,10 +453,10 @@
  
 )
 (defrule pregunta_5
- 	 (paciente (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e))
+ 	 (paciente (codigo ?c) (nombres ?n) (apellidos ?a) (edad ?e))
 	 (cuestionario (codigo ?ct) (codigopaciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
 	 (test
-        (eq ?t FB)
+        (eq ?t "FB")
      )
 	 (test
         (eq ?p 5)
@@ -492,10 +490,10 @@
 )
 
 (defrule pregunta_6
- 	 (paciente (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e))
+ 	 (paciente (codigo ?c) (nombres ?n) (apellidos ?a) (edad ?e))
 	 (cuestionario (codigo ?ct) (codigopaciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
 	 (test
-        (eq ?t FB)
+        (eq ?t "FB")
      ) 
 	 (test
         (eq ?p 6)
@@ -529,10 +527,10 @@
 )
 
 (defrule pregunta_7
- 	 (paciente (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e))
+ 	 (paciente (codigo ?c) (nombres ?n) (apellidos ?a) (edad ?e))
 	 (cuestionario (codigo ?ct) (codigopaciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
 	 (test
-        (eq ?t FB)
+        (eq ?t "FB")
      )
 	 (test
         (eq ?p 7)
@@ -567,10 +565,10 @@
 )
 
 (defrule pregunta_8
- 	 (paciente (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e))
+ 	 (paciente (codigo ?c) (nombres ?n) (apellidos ?a) (edad ?e))
 	 (cuestionario (codigo ?ct) (codigopaciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
 	 (test
-        (eq ?t FB)
+        (eq ?t "FB")
      ) 
 	 (test
         (eq ?p 8)
@@ -604,10 +602,10 @@
 )
 
 (defrule pregunta_9
- 	 (paciente (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e))
+ 	 (paciente (codigo ?c) (nombres ?n) (apellidos ?a) (edad ?e))
 	 (cuestionario (codigo ?ct) (codigopaciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
 	 (test
-        (eq ?t FB)
+        (eq ?t "FB")
      )
 	 (test
         (eq ?p 9)
@@ -641,10 +639,10 @@
 )
 
 (defrule pregunta_10
- 	 (paciente (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e))
+ 	 (paciente (codigo ?c) (nombres ?n) (apellidos ?a) (edad ?e))
 	 (cuestionario (codigo ?ct) (codigopaciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
 	 (test
-        (eq ?t FB)
+        (eq ?t "FB")
      )
 	 (test
         (eq ?p 10)
@@ -678,10 +676,10 @@
 )
 
 (defrule pregunta_11
- 	 (paciente (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e))
+ 	 (paciente (codigo ?c) (nombres ?n) (apellidos ?a) (edad ?e))
 	 (cuestionario (codigo ?ct) (codigopaciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
 	 (test
-        (eq ?t FB)
+        (eq ?t "FB")
      ) 
 	 (test
         (eq ?p 11)
@@ -715,10 +713,10 @@
 )
 
 (defrule pregunta_12
- 	 (paciente (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e))
+ 	 (paciente (codigo ?c) (nombres ?n) (apellidos ?a) (edad ?e))
 	 (cuestionario (codigo ?ct) (codigopaciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
 	 (test
-        (eq ?t FB)
+        (eq ?t "FB")
      )
 	 (test
         (eq ?p 12)
@@ -752,10 +750,10 @@
 )
 
 (defrule pregunta_13
- 	 (paciente (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e))
+ 	 (paciente (codigo ?c) (nombres ?n) (apellidos ?a) (edad ?e))
 	 (cuestionario (codigo ?ct) (codigopaciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
 	 (test
-        (eq ?t FB)
+        (eq ?t "FB")
      )
 	 (test
         (eq ?p 13)
@@ -789,10 +787,10 @@
 )
 
 (defrule pregunta_14
- 	 (paciente (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e))
+ 	 (paciente (codigo ?c) (nombres ?n) (apellidos ?a) (edad ?e))
 	 (cuestionario (codigo ?ct) (codigopaciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
 	 (test
-        (eq ?t FB)
+        (eq ?t "FB")
      )
 	 (test
         (eq ?p 14)
@@ -826,10 +824,10 @@
 )
 
 (defrule pregunta_15
- 	 (paciente (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e))
+ 	 (paciente (codigo ?c) (nombres ?n) (apellidos ?a) (edad ?e))
 	 (cuestionario (codigo ?ct) (codigopaciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
 	 (test
-        (eq ?t FB)
+        (eq ?t "FB")
      )
 	 (test
         (eq ?p 15)
@@ -863,10 +861,10 @@
 )
 
 (defrule pregunta_16
- 	 (paciente (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e))
+ 	 (paciente (codigo ?c) (nombres ?n) (apellidos ?a) (edad ?e))
 	 (cuestionario (codigo ?ct) (codigopaciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
 	 (test
-        (eq ?t FB)
+        (eq ?t "FB")
      )
 	 (test
         (eq ?p 16)
@@ -900,10 +898,10 @@
 )
 
 (defrule pregunta_17
- 	 (paciente (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e))
+ 	 (paciente (codigo ?c) (nombres ?n) (apellidos ?a) (edad ?e))
 	 (cuestionario (codigo ?ct) (codigopaciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
 	 (test
-        (eq ?t FB)
+        (eq ?t "FB")
      )
 	 (test
         (eq ?p 17)
@@ -947,10 +945,10 @@
 )
 
 (defrule diagnostico1 
-	(paciente (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e))
+	(paciente (codigo ?c) (nombres ?n) (apellidos ?a) (edad ?e))
 	(cuestionario (codigo ?ct) (codigopaciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
 	(test
-        (eq ?t FB)
+        (eq ?t "FB")
     )
 	
 	(test
@@ -964,7 +962,7 @@
 	(printout t  "yuuydf" ?*total* crlf )
 	(open "C://Users//Adrian//Desktop//Flask//app//Base-Conocimiento-Sistemas.csv" DiagnosticosFB "a")
  
-	(printout DiagnosticosFB   " Diagnostico de paciente: " $?n "  " $?a "  Los síntomas que presenta no son suficientes para indicar la presencia de Fobia Social, por lo que es muy poco probable que padezca este trastorno." crlf)
+	(printout DiagnosticosFB   " Diagnostico de paciente: " ?n "  " ?a "  Los síntomas que presenta no son suficientes para indicar la presencia de Fobia Social, por lo que es muy poco probable que padezca este trastorno." crlf)
 	(close DiagnosticosFB) 
  
 	)
@@ -978,7 +976,7 @@
 	 
 	then
  	(open "C://Users//Adrian//Desktop//Flask//app//Base-Conocimiento-Sistemas.csv" DiagnosticosFB "a")
-	(printout DiagnosticosFB  "Diagnostico de paciente: " $?n "  " $?a " Usted presenta una sintomatología leve Fobia Social, por lo que es muy poco probable que actualmente tenga esta patología. Le recomendamos hablar con un profesional de salud mental si estos síntomas persisten por más de un mes o si en el futuro se agregan otros síntomas." crlf)
+	(printout DiagnosticosFB  "Diagnostico de paciente: " ?n "  " ?a " Usted presenta una sintomatología leve Fobia Social, por lo que es muy poco probable que actualmente tenga esta patología. Le recomendamos hablar con un profesional de salud mental si estos síntomas persisten por más de un mes o si en el futuro se agregan otros síntomas." crlf)
 	(close DiagnosticosFB)  
 	)
  	
@@ -990,7 +988,7 @@
 	 
 	then
  	(open "C://Users//Adrian//Desktop//Flask//app//Base-Conocimiento-Sistemas.csv" DiagnosticosFB "a")
-	(printout DiagnosticosFB  "Diagnostico de paciente: " $?n "  " $?a " Le sugerimos que solicite una evaluación por médico psiquiatra, ya que usted podría estar cursando con una Fobia Social." crlf)
+	(printout DiagnosticosFB  "Diagnostico de paciente: " ?n "  " ?a " Le sugerimos que solicite una evaluación por médico psiquiatra, ya que usted podría estar cursando con una Fobia Social." crlf)
 	(close DiagnosticosFB)  
 	)
  	
@@ -1002,7 +1000,7 @@
 		)
 	then
  	(open "C://Users//Adrian//Desktop//Flask//app//Base-Conocimiento-Sistemas.csv" DiagnosticosFB "a")
-	(printout DiagnosticosFB  "Diagnostico de paciente: " $?n "  " $?a " Los resultados indican que usted tiene una alta probabilidad de padecer fobia social por lo que se recomienda la terapia conversacional y los antidepresivos para  aumentar la confianza y mejorar la capacidad de interactuar con otras personas." crlf)
+	(printout DiagnosticosFB  "Diagnostico de paciente: " ?n "  " ?a " Los resultados indican que usted tiene una alta probabilidad de padecer fobia social por lo que se recomienda la terapia conversacional y los antidepresivos para  aumentar la confianza y mejorar la capacidad de interactuar con otras personas." crlf)
 	(close DiagnosticosFB)  
 	)
 
@@ -1015,7 +1013,7 @@
 	 
 	then
  	(open "C://Users//Adrian//Desktop//Flask//app//Base-Conocimiento-Sistemas.csv" DiagnosticosFB "a")
-	(printout DiagnosticosFB  "Diagnostico de paciente: " $?n "  " $?a " Usted padece de fobia social!! por lo que por su bienestar se exige que acuda inmediatamente a una clínica u hospital más cercano con la compañía de algún familiar" crlf)
+	(printout DiagnosticosFB  "Diagnostico de paciente: " ?n "  " ?a " Usted padece de fobia social!! por lo que por su bienestar se exige que acuda inmediatamente a una clínica u hospital más cercano con la compañía de algún familiar" crlf)
 	(close DiagnosticosFB) 
 	)
  
@@ -1029,10 +1027,10 @@
 
 
 (defrule pregunta_18
-	(paciente2 (codigo ?c2) (nombres $?n2) (apellidos $?a2) (edad ?e2))
+	(paciente2 (codigo ?c2) (nombres ?n2) (apellidos ?a2) (edad ?e2))
 	(cuestionario2 (codigo ?ct2) (codigopaciente ?cp2) (respuesta ?r2)(tipo ?t2) (pregunta ?p2))
 	 (test
-        (eq ?t2 AU)
+        (eq ?t2 "AU")
      )
 	 (test
         (eq ?p2 18)
@@ -1070,10 +1068,10 @@
 
 
 (defrule pregunta_19
-	(paciente2 (codigo ?c2) (nombres $?n2) (apellidos $?a2) (edad ?e2))
+	(paciente2 (codigo ?c2) (nombres ?n2) (apellidos ?a2) (edad ?e2))
 	(cuestionario2 (codigo ?ct2) (codigopaciente ?cp2) (respuesta ?r2)(tipo ?t2) (pregunta ?p2))
 	 (test
-        (eq ?t2 AU)
+        (eq ?t2 "AU")
      )
 	 (test
         (eq ?p2 19)
@@ -1104,10 +1102,10 @@
 )
 
 (defrule pregunta_20
-	(paciente2 (codigo ?c2) (nombres $?n2) (apellidos $?a2) (edad ?e2))
+	(paciente2 (codigo ?c2) (nombres ?n2) (apellidos ?a2) (edad ?e2))
 	(cuestionario2 (codigo ?ct2) (codigopaciente ?cp2) (respuesta ?r2)(tipo ?t2) (pregunta ?p2))
 	 (test
-        (eq ?t2 AU)
+        (eq ?t2 "AU")
      )
 	 (test
         (eq ?p2 20)
@@ -1137,10 +1135,10 @@
  
 )
 (defrule pregunta_21
-	(paciente2 (codigo ?c2) (nombres $?n2) (apellidos $?a2) (edad ?e2))
+	(paciente2 (codigo ?c2) (nombres ?n2) (apellidos ?a2) (edad ?e2))
 	(cuestionario2 (codigo ?ct2) (codigopaciente ?cp2) (respuesta ?r2)(tipo ?t2) (pregunta ?p2))
 	 (test
-        (eq ?t2 AU)
+        (eq ?t2 "AU")
      )
 	 (test
         (eq ?p2 21)
@@ -1171,11 +1169,11 @@
 )
 
 (defrule pregunta_22
-	(paciente2 (codigo ?c2) (nombres $?n2) (apellidos $?a2) (edad ?e2))
+	(paciente2 (codigo ?c2) (nombres ?n2) (apellidos ?a2) (edad ?e2))
 	(cuestionario2 (codigo ?ct2) (codigopaciente ?cp2) (respuesta ?r2)(tipo ?t2) (pregunta ?p2))
 	 
 	 (test
-        (eq ?t2 AU)
+        (eq ?t2 "AU")
      )
 	 (test
         (eq ?p2 22)
@@ -1206,10 +1204,10 @@
 )
 
 (defrule pregunta_23
-	(paciente2 (codigo ?c2) (nombres $?n2) (apellidos $?a2) (edad ?e2))
+	(paciente2 (codigo ?c2) (nombres ?n2) (apellidos ?a2) (edad ?e2))
 	(cuestionario2 (codigo ?ct2) (codigopaciente ?cp2) (respuesta ?r2)(tipo ?t2) (pregunta ?p2))
 	 (test
-        (eq ?t2 AU)
+        (eq ?t2 "AU")
      )
 	 (test
         (eq ?p2 23)
@@ -1245,10 +1243,10 @@
 
 
 (defrule diagnostico2 
-	 (paciente2 (codigo ?c) (nombres $?n) (apellidos $?a) (edad ?e))
+	 (paciente2 (codigo ?c) (nombres ?n) (apellidos ?a) (edad ?e))
 	 (cuestionario2 (codigo ?ct) (codigopaciente ?cp) (respuesta ?r) (tipo ?t) (pregunta ?p))
 	 (test
-        (eq ?t AU)
+        (eq ?t "AU")
      )
 	 (test
       (eq ?p 18)
@@ -1260,7 +1258,7 @@
   
 	then (open "C://Users//Adrian//Desktop//Flask//app//Base-Conocimiento-Sistemas.csv" DiagnosticosAU "a")
  
-	(printout DiagnosticosAU "Diagnostico de paciente: " $?n "  " $?a "  Usted tiene baja Autoestima por lo que se recomienda trabajar y confiar en usted mismo  y además  acudir a un psiquiatra" crlf)
+	(printout DiagnosticosAU "Diagnostico de paciente: " ?n "  " ?a "  Usted tiene baja Autoestima por lo que se recomienda trabajar y confiar en usted mismo  y además  acudir a un psiquiatra" crlf)
 	(close DiagnosticosAU) 
 	
  
@@ -1276,7 +1274,7 @@
 	 
 	then
 	(open "C://Users//Adrian//Desktop//Flask//app//Base-Conocimiento-Sistemas.csv" DiagnosticosAU "a")
-	(printout DiagnosticosAU  "Diagnostico de paciente: " $?n "  " $?a " Usted tiene una  Autoestima media baja  por lo que se recomienda identificar sus miedos y no compararse con los demás, el ejercicio igual ayuda y de ser necesario     acudir a un psiquiatra" crlf)
+	(printout DiagnosticosAU  "Diagnostico de paciente: " ?n "  " ?a " Usted tiene una  Autoestima media baja  por lo que se recomienda identificar sus miedos y no compararse con los demás, el ejercicio igual ayuda y de ser necesario     acudir a un psiquiatra" crlf)
 	(close DiagnosticosAU)  
 	 
 	)
@@ -1289,7 +1287,7 @@
 	 
 	then
 	(open "C://Users//Adrian//Desktop//Flask//app//Base-Conocimiento-Sistemas.csv" DiagnosticosAU "a")
-	(printout DiagnosticosAU  "Diagnostico de paciente: " $?n "  " $?a " Usted tiene una  Autoestima media alta   por lo que si en algún momento se siente mal sólo se  recomienda  distraerse y hacer lo que le guste" crlf)
+	(printout DiagnosticosAU  "Diagnostico de paciente: " ?n "  " ?a " Usted tiene una  Autoestima media alta   por lo que si en algún momento se siente mal sólo se  recomienda  distraerse y hacer lo que le guste" crlf)
 	(close DiagnosticosAU) 
 	)
 	
@@ -1301,7 +1299,7 @@
 		)
 	then
 	(open "C://Users//Adrian//Desktop//Flask//app//Base-Conocimiento-Sistemas.csv" DiagnosticosAU "a") 
-	(printout DiagnosticosAU   "Diagnostico de paciente: " $?n "  " $?a "Usted se encuentra emocionalmente estable y fuera de peligro siga así" crlf)
+	(printout DiagnosticosAU   "Diagnostico de paciente: " ?n "  " ?a "Usted se encuentra emocionalmente estable y fuera de peligro siga así" crlf)
 	(close DiagnosticosAU)
 
 	)
@@ -1314,7 +1312,7 @@
 		)
 	then
 	(open "C://Users//Adrian//Desktop//Flask//app//Base-Conocimiento-Sistemas.csv" DiagnosticosAU "a") 
-	(printout DiagnosticosAU   "Diagnostico de paciente: " $?n "  " $?a "Felicidades usted tiene una autoestima alta a sonreirle a la vida" crlf)
+	(printout DiagnosticosAU   "Diagnostico de paciente: " ?n "  " ?a "Felicidades usted tiene una autoestima alta a sonreirle a la vida" crlf)
 	(close DiagnosticosAU)
 
 	)
