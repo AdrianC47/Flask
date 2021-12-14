@@ -22,7 +22,7 @@
 
 ;====================================================================================================================
 
-(make-instance [paciente02] of paciente2 (codigo 2) (nombres "Emilio" "Jose") (apellidos "Marquez" "Uyaguari") (edad 35.0))		
+(make-instance [paciente02] of paciente2 (codigo 2) (nombres "Emilio Jose") (apellidos "Marquez Uyaguari") (edad 35.0))		
 
 (make-instance [cuestionario2p1] of cuestionario2 (codigo 18) (codigopaciente 2)(respuesta  "4")  (tipo "AU") (pregunta 18))
 (make-instance [cuestionario2p2] of cuestionario2 (codigo 19) (codigopaciente 2)(respuesta  "2")  (tipo "AU") (pregunta 19))

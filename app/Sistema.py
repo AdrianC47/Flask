@@ -215,8 +215,8 @@ def crearPtest2():
            
        
         arreglo2.to_csv('pacientesAutoestima.csv',index=False,header=False)
-        entorno.load_instances('pacientesAutoestima.csv')
-        entorno.run()
+        #entorno.load_instances('pacientesAutoestima.csv')
+        #entorno.run()
         return render_template('Diagnostico.html',tam=len(instancias),lista=instancias )
     #entorno.load('Base-Conocimiento-Sistemas.clp')
  
